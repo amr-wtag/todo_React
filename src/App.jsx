@@ -165,6 +165,7 @@ function App() {
   // useEffect
   useEffect(() => {
     setTodoLength(todos.length);
+
     const arr = [];
     if (flag === "all") {
       todos.map((todo) => {
@@ -190,7 +191,11 @@ function App() {
           arr.push(todo);
       });
     }
-    if (todos.length === 0) setFlag("all");
+    if (todos.length === 0) {
+      setFlag("all");
+      setSearchShow(false);
+    }
+
     setShowTodos(arr);
   }, [flag, todos, search, toasts]);
   //Toast useeffect
