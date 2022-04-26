@@ -183,12 +183,12 @@ body {
   margin-top: 8px;
 }
 .blur {
-  filter: blur(0.8px);
+  opacity: 0.5;
   pointer-events: none;
   user-select: none;
 }
 .blurButton {
-  filter: blur(0.8px);
+  opacity: 0.5;
   pointer-events: none;
   user-select: none;
 }
