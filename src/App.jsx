@@ -1,94 +1,37 @@
 /* eslint-disable array-callback-return */
 
 import "./App.css";
-
-import { useState, useEffect } from "react";
-import Todos from "./Todos";
-import Header from "./Header";
-import { Icon } from "./components/Icon";
-import { Tag } from "./components/Tag";
 import { v4 as uuidv4 } from "uuid";
-import { Toaster } from "./components/Toaster";
-
+import React, { useState, useEffect } from "react";
+import Todos from "./components/Todos";
+import Header from "./components/Header";
+import Icon from "./components/Icon";
+import Tag from "./components/Tag";
+import Toaster from "./components/Toaster";
+import { supabase } from "./config/apiClient";
+export const AppContext = React.createContext();
 function App() {
   const [todos, setTodos] = useState([]);
 
   const [toasts, setToasts] = useState([]);
-  const [show, setShow] = useState(false);
-  const [showSpinner, setShowSpinner] = useState(false);
+  const [showEmpty, setShowEmpty] = useState(true);
   const [showBigSpinner, setShowBigSpinner] = useState(false);
-  const [taskvalue, setTaskvalue] = useState("");
   const [searchShow, setSearchShow] = useState(false);
   const [flag, setFlag] = useState("all");
-  const [showTodos, setShowTodos] = useState(todos);
   const [search, setSearch] = useState("");
-  const [todoLength, setTodoLength] = useState(0);
+  const [dataCount, setDataCount] = useState(0);
   const [splash, setSplash] = useState(true);
 
-  // Delete task
-  const deletetodo = (id) => {
-    const index = todos.findIndex((todo) => todo.id === id);
-    let tempTodos = [...todos];
-    tempTodos[index].isLoading = true;
-    setTodos(tempTodos);
-
-    setTimeout(() => {
-      setTodos(todos.filter((todo) => todo.isLoading !== true));
-      // toaster
-      let newToast = {
-        id: uuidv4(),
-        type: "success",
-        message: "Task Deleted",
-      };
-      let allToast = [...toasts];
-      allToast.push(newToast);
-      setToasts(allToast);
-    }, 500);
-  };
-  //edit toggle
-  const editToggle = (id) => {
-    const index = todos.findIndex((todo) => todo.id === id);
-    let tempTodos = [...todos];
-    tempTodos[index].isEdit = !tempTodos[index].isEdit;
-    setTodos(tempTodos);
-  };
   //flag
   const flagHandler = (e) => {
     if (flag !== e) {
-      setShowBigSpinner(true);
-      setTimeout(() => {
-        setFlag(e);
-        setShowBigSpinner(false);
-      }, 1000);
+      setFlag(e);
     }
   };
 
-  // on Complete
-
-  const completeHandler = (id) => {
-    const index = todos.findIndex((todo) => todo.id === id);
-    let tempTodos = [...todos];
-    if (tempTodos[index].isEdit) editToggle(id);
-    tempTodos[index].isLoading = true;
-    setTodos(tempTodos);
-    setTimeout(() => {
-      tempTodos = [...todos];
-      tempTodos[index].completed_on = new Date(Date.now()).toLocaleDateString();
-      tempTodos[index].isLoading = false;
-      setTodos(tempTodos);
-      let newToast = {
-        id: uuidv4(),
-        type: "success",
-        message: "Task Complted",
-      };
-      let allToast = [...toasts];
-      allToast.push(newToast);
-      setToasts(allToast);
-    }, 1000);
-  };
   //search value
   const searchvalue = (e) => {
-    if (e.length > 2 /*  || e.length === 0 */) {
+    if (e.length > 2) {
       setTimeout(() => {
         setShowBigSpinner(true);
       }, 500);
@@ -98,53 +41,7 @@ function App() {
       }, 1500);
     }
   };
-  //add task value
-  const task = (e) => {
-    setTaskvalue(e);
-  };
-  // addhandler
-  const addhandler = (e) => {
-    if (taskvalue.length < 3) {
-      let newToast = {
-        id: uuidv4(),
-        type: "error",
-        message: "Task must be more then 3 character",
-      };
-      let allToast = [...toasts];
-      allToast.push(newToast);
-      setToasts(allToast);
-    } else {
-      setShowSpinner(true);
-      setTimeout(() => {
-        let newTodo = {
-          id: uuidv4(),
-          name: taskvalue,
-          created_at: new Date(Date.now()).toLocaleDateString(),
-          completed_on: null,
-          isLoading: false,
-          isEdit: false,
-        };
-        let tempTodos = [newTodo, ...todos];
 
-        setTodos(tempTodos);
-        togglehandler();
-        setShowSpinner(false);
-        let newToast = {
-          id: uuidv4(),
-          type: "success",
-          message: "New Task added",
-        };
-        let allToast = [...toasts];
-        allToast.push(newToast);
-        setToasts(allToast);
-      }, 500);
-    }
-  };
-  //toggle
-  const togglehandler = (e) => {
-    setTaskvalue("");
-    setShow(!show);
-  };
   //search toggle
   const SearchToggle = () => {
     if (search !== "") {
@@ -156,48 +53,108 @@ function App() {
     }
     setSearchShow(!searchShow);
   };
-  //splash useEffect
-  useEffect(() => {
-    setTimeout(() => {
-      setSplash(false);
-    }, 1000);
-  }, []);
+
   // useEffect
   useEffect(() => {
-    setTodoLength(todos.length);
+    const fetchData = async (e) => {
+      setShowBigSpinner(true);
+      if (flag === "all") {
+        try {
+          const { data } = await supabase
+            .from("ReactTodo")
+            .select()
+            .ilike("name", `%${search}%`)
+            .order("id", { ascending: false });
+          setTodos([]);
+          // setDataCount(data.length);
+          setTodos(data);
+          let newToast = {
+            id: uuidv4(),
+            type: "success",
+            message: "All Data fetched",
+          };
 
-    const arr = [];
-    if (flag === "all") {
-      todos.map((todo) => {
-        if (todo.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
-          arr.push(todo);
-        // setShowTodos(arr);
-      });
-    } else if (flag === "incomplete") {
-      todos.map((todo) => {
-        if (
-          todo.completed_on === null &&
-          todo.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-        )
-          arr.push(todo);
-        // setShowTodos(arr);
-      });
-    } else {
-      todos.map((todo) => {
-        if (
-          todo.completed_on !== null &&
-          todo.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-        )
-          arr.push(todo);
-      });
-    }
-    if (todos.length === 0) {
-      setFlag("all");
-      setSearchShow(false);
-    }
+          if (splash) {
+            setDataCount(data.length);
+            setTimeout(() => {
+              setSplash(false);
+            }, 250);
+          }
+          setToasts([...toasts, newToast]);
+        } catch (error) {
+          let newToast = {
+            id: uuidv4(),
+            type: "error",
+            message: error,
+          };
 
-    setShowTodos(arr);
-  }, [flag, todos, search, toasts]);
+          setToasts([...toasts, newToast]);
+        }
+      } else if (flag === "incomplete") {
+        try {
+          const { data } = await supabase
+            .from("ReactTodo")
+            .select()
+            .ilike("name", `%${search}%`)
+            .is("completed_on", null)
+            .order("id", { ascending: false });
+
+          setTodos([]);
+          setTodos(data);
+          let newToast = {
+            id: uuidv4(),
+            type: "success",
+            message: "Incompleted Data fetched",
+          };
+
+          setToasts([...toasts, newToast]);
+        } catch (error) {
+          let newToast = {
+            id: uuidv4(),
+            type: "error",
+            message: error,
+          };
+
+          setToasts([...toasts, newToast]);
+        }
+      } else {
+        try {
+          const { data } = await supabase
+            .from("ReactTodo")
+            .select()
+            .ilike("name", `%${search}%`)
+            .order("id", { ascending: false })
+            .not("completed_on", "is", null);
+
+          setTodos([]);
+          setTodos(data);
+          let newToast = {
+            id: uuidv4(),
+            type: "success",
+            message: "Completed Data fetched",
+          };
+
+          setToasts([...toasts, newToast]);
+        } catch (error) {
+          let newToast = {
+            id: uuidv4(),
+            type: "error",
+            message: error,
+          };
+
+          setToasts([...toasts, newToast]);
+        }
+      }
+      /*  if (todos === null || todos.length === undefined) {
+        setFlag("all");
+        setSearchShow(false);
+      } */
+      // console.log(todos.length);
+      setShowBigSpinner(false);
+    };
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flag, search]);
   //Toast useeffect
   useEffect(() => {
     if (toasts.length > 0) {
@@ -208,6 +165,38 @@ function App() {
       }, 500);
     }
   }, [toasts]);
+  const handleRemoveTodo = async (id) => {
+    try {
+      // eslint-disable-next-line
+      const { data } = await supabase
+        .from("ReactTodo")
+        .delete()
+        .match({ id: id });
+      let newToast = {
+        id: uuidv4(),
+        type: "success",
+        message: "Task Deleted",
+      };
+
+      setToasts([...toasts, newToast]);
+    } catch (error) {
+      let newToast = {
+        id: uuidv4(),
+        type: "error",
+        message: error,
+      };
+      setToasts([...toasts, newToast]);
+    }
+    removeCompleteFromIncomplete(id);
+    if (dataCount === 1) {
+      setSearchShow(false);
+      setFlag("all");
+    }
+  };
+  const removeCompleteFromIncomplete = (id) => {
+    const filtertodos = todos.filter((todo) => todo.id !== id);
+    setTodos(filtertodos);
+  };
   return (
     <div className="App">
       {splash && (
@@ -228,8 +217,7 @@ function App() {
             SearchToggle={SearchToggle}
             searchShow={searchShow}
             searchvalue={searchvalue}
-            showBigSpinner={showBigSpinner}
-            todoLength={todoLength}
+            dataCount={dataCount}
           />
           <div className="overToaster">
             <div className="toaster">
@@ -245,40 +233,41 @@ function App() {
                 ))}
             </div>
           </div>
-          <Todos
-            todos={showTodos}
-            allTodos={todos}
-            onDelete={deletetodo}
-            completeHandler={completeHandler}
-            show={show}
-            togglehandler={togglehandler}
-            addhandler={addhandler}
-            task={task}
-            showSpinner={showSpinner}
-            showBigSpinner={showBigSpinner}
-            todoLength={todoLength}
-            flagHandler={flagHandler}
-            editToggle={editToggle}
-            setTodos={setTodos}
-            toasts={toasts}
-            setToasts={setToasts}
-          />
+          <div className={`${showBigSpinner && "blur"}`}>
+            <AppContext.Provider
+              value={{
+                todos,
+                flag,
+                flagHandler,
+                toasts,
+                setToasts,
+                handleRemoveTodo,
+                dataCount,
+                setDataCount,
+                setShowEmpty,
+                removeCompleteFromIncomplete,
+              }}
+            >
+              <Todos />
+            </AppContext.Provider>
+          </div>
 
           <div>
             {showBigSpinner && (
               <Icon className="spinning rotateFull" src="Spin" />
             )}
           </div>
-          {todoLength === 0 && !show && (
-            <div className={`emptyScreenOver ${showBigSpinner && "blur"}`}>
+
+          {showEmpty && dataCount === 0 && !showBigSpinner && (
+            <div className={`emptyScreenOver `}>
               <Icon src="EmptyScreen" className="emptyScreen" />
               <Tag className="pleaseAdd">
                 You didn't add any task. Please, add one.
               </Tag>
             </div>
           )}
-          {todoLength !== 0 && showTodos.length === 0 && !show && (
-            <div className={`emptyScreenOver ${showBigSpinner && "blur"}`}>
+          {showEmpty && dataCount > 0 && todos.length === 0 && !showBigSpinner && (
+            <div className={`emptyScreenOver `}>
               <Icon src="EmptyScreen" className="emptyScreen" />
               <Tag className="pleaseAdd"> There is no data for {flag}</Tag>
             </div>

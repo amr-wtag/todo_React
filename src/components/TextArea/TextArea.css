@@ -1,0 +1,8 @@
+.editName {
+  resize: none;
+  min-width: -webkit-fill-available;
+  height: 74px;
+  border: 3px solid #d1d8ff;
+  box-sizing: border-box;
+  border-radius: 5px;
+}

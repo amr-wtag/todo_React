@@ -1,0 +1,113 @@
+.boxedButton {
+  background: none;
+  cursor: pointer;
+  border: none;
+  padding: 0px;
+  padding-right: 20px;
+}
+.topButton {
+  height: 36px;
+  color: #32394b;
+  background: #ffffff;
+  border: 1px solid #dde2ff;
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 10px;
+  font-family: Roboto, sans-serif;
+}
+.create {
+  display: flex;
+  background: #7a8dfd;
+  width: 104px;
+  height: 36px;
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+  border: 0px;
+  justify-content: space-evenly;
+  cursor: pointer;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.topButtonAll {
+  width: 232px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.searchButton {
+  background: none;
+  cursor: pointer;
+  border: none;
+  padding: 0px;
+}
+.blurButton {
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+.saveButton {
+  cursor: pointer;
+  min-width: 51px;
+  height: 36px;
+  border-radius: 5px;
+  background: #ffffff;
+  cursor: pointer;
+  border: 1px solid #dde2ff;
+  margin-right: 15px;
+}
+.boxedButtonCompletedOn {
+  display: flex;
+  flex-wrap: wrap;
+  top: 73%;
+  min-width: 104px;
+  justify-content: space-between;
+}
+.allBoxedButon {
+  display: flex;
+  min-width: 136px;
+  justify-content: space-between;
+}
+.bottomButton {
+  padding-bottom: 50px;
+}
+.loadMoreBtnContainer {
+  background: #32394b;
+  border: 1px solid #dde2ff;
+
+  border-radius: 5px;
+  min-width: 117px;
+  min-height: 36px;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  cursor: pointer;
+  margin-top: 20px;
+}
+.loadmoreOver {
+  display: flex;
+  justify-content: center;
+}
+@media screen and (max-width: 854px) {
+  .allBoxedButon {
+    min-width: 33px;
+  }
+}
+@media screen and (max-width: 725px) {
+  .create {
+    width: 95px;
+    font-size: 14px;
+  }
+  .topButton {
+    height: 36px;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 411px) {
+  .create {
+    margin: 5px 10px 0px 0px;
+  }
+}

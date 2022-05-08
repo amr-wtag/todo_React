@@ -1,0 +1,24 @@
+.overHead {
+  border: 1px solid #dde2ff;
+  background-color: white;
+}
+.Header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0px 7.5% 0px 6.5%;
+}
+.headerClass {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1682px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 7.5% 0px 6.5%;
+  margin-bottom: 50px;
+}
+.searchInputButton {
+  display: flex;
+}

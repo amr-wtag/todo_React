@@ -1,0 +1,34 @@
+.search {
+  margin-right: 4px;
+  width: 518px;
+  height: 36px;
+  background: #ffffff;
+  border: 3px solid #d1d8ff;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+@media screen and (max-width: 854px) {
+  .search {
+    width: 390px;
+  }
+}
+@media screen and (max-width: 725px) {
+  .search {
+    width: 260px;
+  }
+}
+@media screen and (max-width: 620px) {
+  .search {
+    width: 160px;
+  }
+}
+@media screen and (max-width: 556px) {
+  .search {
+    width: 180px;
+  }
+}
+@media screen and (max-width: 411px) {
+  .search {
+    width: 75px;
+  }
+}

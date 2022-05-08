@@ -1,0 +1,67 @@
+.logo {
+  display: flex;
+  align-items: center;
+}
+.splashLogo {
+  display: flex;
+  align-items: center;
+  padding: 87px 7.5% 0px 6.5%;
+}
+.IconLogo {
+  padding-right: 6px;
+}
+.splashIconLogo {
+  padding-right: 6px;
+  max-width: 154px;
+  height: 154px;
+}
+.imgLogo {
+  padding-right: 8px;
+}
+.emptyScreen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  max-height: 243px;
+}
+.emptyScreenOver {
+  padding: 0px 7.5% 0px 6.5%;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spinning {
+  animation: spin 2s infinite;
+}
+.rotateDiv {
+  display: flex;
+  position: absolute;
+  z-index: 9999;
+  width: 50px;
+  height: 47.36px;
+  left: 40%;
+  top: 35%;
+  text-align: middle;
+}
+.rotateFull {
+  position: absolute;
+  left: 47%;
+  top: 42%;
+  z-index: 9999;
+}
+@media screen and (max-width: 1086px) {
+  .rotateFull {
+    left: 44%;
+  }
+}
+@media screen and (max-width: 620px) {
+  .rotateFull {
+    left: 37%;
+  }
+}
