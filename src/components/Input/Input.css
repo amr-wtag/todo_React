@@ -17,11 +17,7 @@
     width: 260px;
   }
 }
-@media screen and (max-width: 620px) {
-  .search {
-    width: 160px;
-  }
-}
+
 @media screen and (max-width: 556px) {
   .search {
     width: 180px;
@@ -29,6 +25,6 @@
 }
 @media screen and (max-width: 411px) {
   .search {
-    width: 75px;
+    width: 86px;
   }
 }

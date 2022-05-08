@@ -185,7 +185,7 @@ const Todos = () => {
 
         {!showFullSpinner && (
           <div className="bottomButton">
-            {todos.length <= 1 ? null : top <= todos.length ? (
+            {todos.length <= 12 ? null : top <= todos.length ? (
               <div className="loadmoreOver">
                 <Button className="loadMoreBtnContainer" onClick={moreValue}>
                   Load More

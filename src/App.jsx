@@ -78,7 +78,7 @@ function App() {
             setDataCount(data.length);
             setTimeout(() => {
               setSplash(false);
-            }, 250);
+            }, 500);
           }
           setToasts([...toasts, newToast]);
         } catch (error) {
@@ -162,7 +162,7 @@ function App() {
         let allToast = [...toasts];
         allToast.shift();
         setToasts(allToast);
-      }, 500);
+      }, 250);
     }
   }, [toasts]);
   const handleRemoveTodo = async (id) => {

@@ -7,13 +7,14 @@ import Button from "../Button";
 import { format } from "date-fns";
 import { supabase } from "../../config/apiClient";
 import { AppContext } from "../../App";
-const Todo = ({
-  todo,
-
-  flag,
-}) => {
-  const { handleRemoveTodo, removeCompleteFromIncomplete, toasts, setToasts } =
-    useContext(AppContext);
+const Todo = ({ todo }) => {
+  const {
+    handleRemoveTodo,
+    flag,
+    removeCompleteFromIncomplete,
+    toasts,
+    setToasts,
+  } = useContext(AppContext);
   const [newName, setNewName] = useState(todo.name);
   const [showEdit, setShowEdit] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
@@ -41,22 +42,30 @@ const Todo = ({
   const completeHandler = async (e) => {
     setShowLoading(true);
     const dateValue = new Date(Date.now());
-    const { data, error } = await supabase
-      .from("ReactTodo")
-      .update({ completed_on: dateValue })
-      .match({ id: todo.id });
-    if (error === null) {
+    try {
+      const { data } = await supabase
+        .from("ReactTodo")
+        .update({ completed_on: dateValue })
+        .match({ id: todo.id });
+
       todo.completed_on = data[0]["completed_on"];
       if (flag === "incomplete") removeCompleteFromIncomplete(todo.id);
+      let newToast = {
+        id: uuidv4(),
+        type: "success",
+        message: "Task Complted",
+      };
+      setToasts([...toasts, newToast]);
+    } catch (error) {
+      let newToast = {
+        id: uuidv4(),
+        type: "error",
+        message: error,
+      };
+      setToasts([...toasts, newToast]);
     }
 
-    setShowLoading(false);
-    let newToast = {
-      id: uuidv4(),
-      type: error ? "error" : "success",
-      message: error ? error : "Task Complted",
-    };
-    setToasts([...toasts, newToast]);
+    if (flag !== "incomplete") setShowLoading(false);
   };
 
   const editValue = async (e) => {

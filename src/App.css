@@ -12,3 +12,10 @@
 .App-link {
   color: #61dafb;
 }
+.splash {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  height: 712px;
+}

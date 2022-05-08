@@ -29,15 +29,9 @@ body {
   }
 }
 .faddingOut {
-  animation: fadeout 1s infinite alternate;
+  animation: fadeout 1.5s infinite alternate;
 }
-.splash {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  height: 712px;
-}
+
 #showName {
   font-size: 24px;
 }
