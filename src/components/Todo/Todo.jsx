@@ -63,20 +63,39 @@ const Todo = ({ todo }) => {
   };
 
   const editValue = async (e) => {
-    // setNewName(newName.trim().replace(/\s+/g, " "));
     if (
-      newName.trim().replace(/\s+/g, " ").length > 2 &&
-      todo.name !== newName.trim().replace(/\s+/g, " ")
+      newName
+        .trim()
+        .replace(/\s+/g, " ")
+        .replace(/(<([^>]+)>)/gi, "").length > 2 &&
+      todo.name !==
+        newName
+          .trim()
+          .replace(/\s+/g, " ")
+          .replace(/(<([^>]+)>)/gi, "")
     ) {
       setShowLoading(true);
       // eslint-disable-next-line
       const { data, error } = await supabase
         .from("ReactTodo")
-        .update({ name: newName.trim().replace(/\s+/g, " ") })
+        .update({
+          name: newName
+            .trim()
+            .replace(/\s+/g, " ")
+            .replace(/(<([^>]+)>)/gi, ""),
+        })
         .match({ id: todo.id });
       if (error === null) {
-        todo.name = newName.trim().replace(/\s+/g, " ");
-        setNewName(newName.trim().replace(/\s+/g, " "));
+        todo.name = newName
+          .trim()
+          .replace(/\s+/g, " ")
+          .replace(/(<([^>]+)>)/gi, "");
+        setNewName(
+          newName
+            .trim()
+            .replace(/\s+/g, " ")
+            .replace(/(<([^>]+)>)/gi, ""),
+        );
       }
       editToggle();
       setShowLoading(false);

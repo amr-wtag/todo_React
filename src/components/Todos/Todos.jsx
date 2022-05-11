@@ -36,7 +36,12 @@ const Todos = () => {
     setShowEmpty(show);
   };
   const addhandler = async (e) => {
-    if (taskvalue.trim().replace(/\s+/g, " ").length < 3) {
+    if (
+      taskvalue
+        .trim()
+        .replace(/\s+/g, " ")
+        .replace(/(<([^>]+)>)/gi, "").length < 3
+    ) {
       let newToast = {
         id: uuidv4(),
         type: "error",
@@ -48,7 +53,10 @@ const Todos = () => {
       try {
         const { data } = await supabase.from("ReactTodo").insert([
           {
-            name: taskvalue.trim().replace(/\s+/g, " "),
+            name: taskvalue
+              .trim()
+              .replace(/\s+/g, " ")
+              .replace(/(<([^>]+)>)/gi, ""),
             created_at: new Date(Date.now()),
           },
         ]);
