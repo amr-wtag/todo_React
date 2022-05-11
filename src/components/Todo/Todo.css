@@ -19,6 +19,7 @@
   margin-top: 15px;
   width: 130px;
   justify-content: space-between;
+  align-items: center;
 }
 
 .todo-createdAt {

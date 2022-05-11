@@ -48,6 +48,7 @@ const Todo = ({ todo }) => {
         type: "success",
         message: "Task Complted",
       };
+      if (showEdit) editToggle();
       setToasts([...toasts, newToast]);
     } catch (error) {
       let newToast = {
