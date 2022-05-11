@@ -21,4 +21,5 @@
 }
 .searchInputButton {
   display: flex;
+  align-items: center;
 }

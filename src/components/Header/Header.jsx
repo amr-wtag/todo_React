@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "../Button";
 import Icon from "../Icon";
 import Input from "../Input";
-const Header = ({
-  SearchToggle,
-  searchShow,
-  searchvalue,
-  showBigSpinner,
-  todoLength,
-  dataCount,
-}) => {
+import { AppContext } from "../../App";
+const Header = () => {
+  const { SearchToggle, searchShow, searchvalue, dataCount, showBigSpinner } =
+    useContext(AppContext);
+  const searchHandler = (e) => {
+    searchvalue(e.target.value);
+  };
+  const debounce = (fn, delay) => {
+    let timer;
+    return (...args) => {
+      const later = () => {
+        timer = null;
+        fn.call(this, ...args);
+      };
+      clearTimeout(timer);
+      timer = setTimeout(later, delay);
+    };
+  };
+  const optimizedVersion = debounce(searchHandler, 250);
   return (
-    <div className={`overHead ${showBigSpinner && "blur"}`}>
+    <div className={`overHead `}>
       <div className="Header">
         <div className="logo">
           <div className="IconLogo">
@@ -21,20 +32,18 @@ const Header = ({
             <Icon src="Title" />
           </div>
         </div>
-        <div className="searchInputButton">
+        <div className={`searchInputButton ${showBigSpinner && "blur"}`}>
           {searchShow && (
             <Input
               id="search"
               autoFocus
-              className="search"
-              onChange={(e) => searchvalue(e.target.value)}
-            ></Input>
+              className="input-search"
+              readOnly={showBigSpinner}
+              onKeyUp={optimizedVersion}
+            />
           )}
           <Button
-            className={`searchButton ${
-              (todoLength === 0 || dataCount === 0) && "blurButton"
-            }`}
-            disabled={todoLength === 0}
+            className={`searchButton ${dataCount === 0 && "blurButton"}`}
             onClick={SearchToggle}
           >
             <Icon src="Search" />

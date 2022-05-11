@@ -1,4 +1,4 @@
-.search {
+.input-search {
   margin-right: 4px;
   width: 518px;
   height: 36px;
@@ -8,23 +8,23 @@
   border-radius: 5px;
 }
 @media screen and (max-width: 854px) {
-  .search {
+  .input-search {
     width: 390px;
   }
 }
 @media screen and (max-width: 725px) {
-  .search {
+  .input-search {
     width: 260px;
   }
 }
 
 @media screen and (max-width: 556px) {
-  .search {
+  .input-search {
     width: 180px;
   }
 }
 @media screen and (max-width: 411px) {
-  .search {
+  .input-search {
     width: 86px;
   }
 }

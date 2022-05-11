@@ -6,6 +6,7 @@
   height: 25px;
   padding: 6px;
   padding-top: 10px;
+  margin-top: 10px;
   text-align: center;
   border: 1px solid;
   border-radius: 5px;
@@ -26,6 +27,17 @@
   opacity: 1;
   visibility: visible;
   width: 500px;
+}
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.faddingtoastOut {
+  animation: fadeout 1.5s;
 }
 .toast--success {
   background: #0bc475;

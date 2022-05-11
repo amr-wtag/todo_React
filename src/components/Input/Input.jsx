@@ -1,11 +1,12 @@
 // Input Component
-export const Input = ({ id, className, onChange, autoFocus }) => {
+export const Input = ({ id, className, onKeyUp, autoFocus, readOnly }) => {
   return (
     <input
       id={id}
       className={className}
-      onChange={onChange}
+      onKeyUp={onKeyUp}
       autoFocus={autoFocus}
+      readOnly={readOnly}
     />
   );
 };

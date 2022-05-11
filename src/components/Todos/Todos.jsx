@@ -17,8 +17,6 @@ const Todos = () => {
     setToasts,
     setDataCount,
     setShowEmpty,
-    handleRemoveTodo,
-    removeCompleteFromIncomplete,
   } = useContext(AppContext);
 
   const [top, setTop] = useState(12);
@@ -46,22 +44,30 @@ const Todos = () => {
       setToasts([...toasts, newToast]);
     } else {
       setShowSpinner(true);
-      const { data, error } = await supabase
-        .from("ReactTodo")
-        .insert([{ name: taskvalue, created_at: new Date(Date.now()) }]);
-      if (error === null) {
+      try {
+        const { data } = await supabase
+          .from("ReactTodo")
+          .insert([{ name: taskvalue, created_at: new Date(Date.now()) }]);
+
         setShow(!show);
         if (flag !== "complete") todos.unshift(data[0]);
         setDataCount(dataCount + 1);
+        let newToast = {
+          id: uuidv4(),
+          type: "success",
+          message: "New Task added",
+        };
+        setToasts([...toasts, newToast]);
+        setTaskvalue("");
+      } catch (error) {
+        let newToast = {
+          id: uuidv4(),
+          type: "error",
+          message: "error",
+        };
+        setToasts([...toasts, newToast]);
       }
-      setTaskvalue("");
       setShowSpinner(false);
-      let newToast = {
-        id: uuidv4(),
-        type: error ? "error" : "success",
-        message: error ? "error" : "New Task added",
-      };
-      setToasts([...toasts, newToast]);
     }
   };
   const moreValue = (e) => {
@@ -128,7 +134,7 @@ const Todos = () => {
             <div id="todo" className="todo">
               <div>
                 <TextArea
-                  className={`editName ${showSpinner && "blur"}`}
+                  className={`textarea-editName ${showSpinner && "blur"}`}
                   placeholder="Add new task"
                   autoFocus
                   onChange={(e) => task(e.target.value)}
@@ -146,7 +152,7 @@ const Todos = () => {
                   }}
                 />
               </div>
-              <div className="addDel">
+              <div className="todo-addDel">
                 <Button
                   className={`saveButton ${showSpinner && "blur"}`}
                   onClick={addhandler}
@@ -166,20 +172,7 @@ const Todos = () => {
             </div>
           )}
           {todos.slice(0, top).map((todo) => (
-            <AppContext.Provider
-              value={{
-                toasts,
-                setToasts,
-                handleRemoveTodo,
-                dataCount,
-                setDataCount,
-                flag,
-                removeCompleteFromIncomplete,
-              }}
-              key={todo.id}
-            >
-              <Todo todo={todo} />
-            </AppContext.Provider>
+            <Todo todo={todo} key={todo.id} />
           ))}
         </div>
 

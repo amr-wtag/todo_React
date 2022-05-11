@@ -1,13 +1,10 @@
 // Button Component
-export const Button = ({ children, onClick, type, className, disabled }) => {
+export const Button = ({ children, onClick, className, disabled }) => {
   return (
-    <button
-      onClick={onClick}
-      type={type}
-      className={className}
-      disabled={disabled}
-    >
-      {children}
-    </button>
+    <div>
+      <button onClick={onClick} className={` ${className}`} disabled={disabled}>
+        {children}
+      </button>
+    </div>
   );
 };

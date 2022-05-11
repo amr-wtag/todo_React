@@ -10,6 +10,7 @@ import Tag from "./components/Tag";
 import Toaster from "./components/Toaster";
 import { supabase } from "./config/apiClient";
 export const AppContext = React.createContext();
+
 function App() {
   const [todos, setTodos] = useState([]);
 
@@ -28,17 +29,20 @@ function App() {
       setFlag(e);
     }
   };
-
+  const removeCompleteFromIncomplete = (id) => {
+    const filtertodos = todos.filter((todo) => todo.id !== id);
+    setTodos(filtertodos);
+  };
   //search value
   const searchvalue = (e) => {
     if (e.length > 2) {
-      setTimeout(() => {
-        setShowBigSpinner(true);
-      }, 500);
-      setTimeout(() => {
-        setSearch(e);
-        setShowBigSpinner(false);
-      }, 1500);
+      /* setTimeout(() => { */
+      /* }, 500); */
+      // setTimeout(() => {
+      setShowBigSpinner(true);
+      setSearch(e);
+      // }, 500);
+      setShowBigSpinner(false);
     }
   };
 
@@ -46,10 +50,8 @@ function App() {
   const SearchToggle = () => {
     if (search !== "") {
       setShowBigSpinner(true);
-      setTimeout(() => {
-        setSearch("");
-        setShowBigSpinner(false);
-      }, 500);
+      setSearch("");
+      setShowBigSpinner(false);
     }
     setSearchShow(!searchShow);
   };
@@ -145,11 +147,7 @@ function App() {
           setToasts([...toasts, newToast]);
         }
       }
-      /*  if (todos === null || todos.length === undefined) {
-        setFlag("all");
-        setSearchShow(false);
-      } */
-      // console.log(todos.length);
+
       setShowBigSpinner(false);
     };
     fetchData();
@@ -193,10 +191,7 @@ function App() {
       setFlag("all");
     }
   };
-  const removeCompleteFromIncomplete = (id) => {
-    const filtertodos = todos.filter((todo) => todo.id !== id);
-    setTodos(filtertodos);
-  };
+
   return (
     <div className="App">
       {splash && (
@@ -213,19 +208,24 @@ function App() {
       )}
       {!splash && (
         <div>
-          <Header
-            SearchToggle={SearchToggle}
-            searchShow={searchShow}
-            searchvalue={searchvalue}
-            dataCount={dataCount}
-          />
+          <AppContext.Provider
+            value={{
+              SearchToggle,
+              searchShow,
+              searchvalue,
+              dataCount,
+              showBigSpinner,
+            }}
+          >
+            <Header />
+          </AppContext.Provider>
           <div className="overToaster">
             <div className="toaster">
               {toasts.length > 0 &&
                 toasts.map((toast) => (
                   <Toaster
                     key={toast.id}
-                    className={`faddingOut toast toast--visible toast--${toast.type}`}
+                    className={`faddingtoastOut toast toast--visible toast--${toast.type}`}
                   >
                     {toast.type === "success" && <Icon src="Check" />}{" "}
                     {toast.message}
@@ -241,11 +241,11 @@ function App() {
                 flagHandler,
                 toasts,
                 setToasts,
-                handleRemoveTodo,
                 dataCount,
                 setDataCount,
                 setShowEmpty,
                 removeCompleteFromIncomplete,
+                handleRemoveTodo,
               }}
             >
               <Todos />
@@ -261,7 +261,7 @@ function App() {
           {showEmpty && dataCount === 0 && !showBigSpinner && (
             <div className={`emptyScreenOver `}>
               <Icon src="EmptyScreen" className="emptyScreen" />
-              <Tag className="pleaseAdd">
+              <Tag className="tag-pleaseAdd">
                 You didn't add any task. Please, add one.
               </Tag>
             </div>
@@ -269,7 +269,7 @@ function App() {
           {showEmpty && dataCount > 0 && todos.length === 0 && !showBigSpinner && (
             <div className={`emptyScreenOver `}>
               <Icon src="EmptyScreen" className="emptyScreen" />
-              <Tag className="pleaseAdd"> There is no data for {flag}</Tag>
+              <Tag className="tag-pleaseAdd"> There is no data for {flag}</Tag>
             </div>
           )}
         </div>

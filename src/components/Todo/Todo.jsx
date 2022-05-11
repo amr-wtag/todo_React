@@ -27,15 +27,8 @@ const Todo = ({ todo }) => {
   // Delete task
   const deletetodo = (id) => {
     setShowLoading(true);
-    /* let error;
-    setTimeout(() => {
-      if (error !== null) { */
-    handleRemoveTodo(id);
-    // setDataCount(dataCount - 1);
-    // }
-    // toaster
 
-    /* }, 500); */
+    handleRemoveTodo(id);
   };
   // on Complete
 
@@ -104,7 +97,9 @@ const Todo = ({ todo }) => {
         {showEdit === true ? (
           <TextArea
             id="editName"
-            className={`editName ${(todo.isLoading || showLoading) && "blur"}`}
+            className={`textarea-editName ${
+              (todo.isLoading || showLoading) && "blur"
+            }`}
             value={newName}
             onChange={edit}
             readOnly={showLoading}
@@ -125,7 +120,7 @@ const Todo = ({ todo }) => {
           <div>
             <Tag
               id="showName"
-              className={`${todo.completed_on && "completed"} ${
+              className={`${todo.completed_on && "tag-completed"} ${
                 (todo.isLoading || showLoading) && "blur"
               }`}
             >
@@ -135,7 +130,9 @@ const Todo = ({ todo }) => {
         )}
         {!showEdit && (
           <div
-            className={`createdAt ${(todo.isLoading || showLoading) && "blur"}`}
+            className={`todo-createdAt ${
+              (todo.isLoading || showLoading) && "blur"
+            }`}
           >
             Created At: {format(new Date(todo.created_at), "dd.MM.yy")}
           </div>
@@ -172,7 +169,7 @@ const Todo = ({ todo }) => {
           </Button>
         </div>
         {todo.completed_on && (
-          <Tag className="completedOn">
+          <Tag className="tag-completedOn">
             Completed in{" "}
             {Math.ceil(
               Math.abs(

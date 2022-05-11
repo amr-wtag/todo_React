@@ -70,6 +70,7 @@
   display: flex;
   min-width: 136px;
   justify-content: space-between;
+  align-items: center;
 }
 .bottomButton {
   padding-bottom: 50px;
