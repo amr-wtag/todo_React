@@ -37,7 +37,7 @@
   }
 }
 .faddingtoastOut {
-  animation: fadeout 1.5s;
+  animation: fadeout 3s forwards;
 }
 .toast--success {
   background: #0bc475;

@@ -60,17 +60,27 @@ function App() {
   useEffect(() => {
     const fetchData = async (e) => {
       setShowBigSpinner(true);
+      let newToast;
       if (flag === "all") {
-        try {
-          const { data } = await supabase
-            .from("ReactTodo")
-            .select()
-            .ilike("name", `%${search}%`)
-            .order("id", { ascending: false });
-          setTodos([]);
-          // setDataCount(data.length);
-          setTodos(data);
-          let newToast = {
+        const { data, error } = await supabase
+          .from("ReactTodo")
+          .select()
+          .ilike("name", `%${search}%`)
+          .order("id", { ascending: false });
+        setTodos([]);
+        // setDataCount(data.length);
+        setTodos(data);
+        if (error) {
+          if (splash) setSplash(false);
+          newToast = {
+            id: uuidv4(),
+            type: "error",
+            message: error.message,
+          };
+        }
+        // setToasts([...toasts, newToast]);
+        else {
+          newToast = {
             id: uuidv4(),
             type: "success",
             message: "All Data fetched",
@@ -82,70 +92,56 @@ function App() {
               setSplash(false);
             }, 500);
           }
-          setToasts([...toasts, newToast]);
-        } catch (error) {
-          let newToast = {
+        }
+
+        setToasts([...toasts, newToast]);
+      } else if (flag === "incomplete") {
+        const { data, error } = await supabase
+          .from("ReactTodo")
+          .select()
+          .ilike("name", `%${search}%`)
+          .is("completed_on", null)
+          .order("id", { ascending: false });
+
+        setTodos([]);
+        if (error) {
+          newToast = {
             id: uuidv4(),
             type: "error",
-            message: error,
+            message: error.message,
           };
-
-          setToasts([...toasts, newToast]);
-        }
-      } else if (flag === "incomplete") {
-        try {
-          const { data } = await supabase
-            .from("ReactTodo")
-            .select()
-            .ilike("name", `%${search}%`)
-            .is("completed_on", null)
-            .order("id", { ascending: false });
-
-          setTodos([]);
+        } else {
           setTodos(data);
-          let newToast = {
+          newToast = {
             id: uuidv4(),
             type: "success",
             message: "Incompleted Data fetched",
           };
-
-          setToasts([...toasts, newToast]);
-        } catch (error) {
-          let newToast = {
+        }
+        setToasts([...toasts, newToast]);
+      } else {
+        const { data, error } = await supabase
+          .from("ReactTodo")
+          .select()
+          .ilike("name", `%${search}%`)
+          .order("id", { ascending: false })
+          .not("completed_on", "is", null);
+        setTodos([]);
+        if (error) {
+          newToast = {
             id: uuidv4(),
             type: "error",
-            message: error,
+            message: error.message,
           };
-
-          setToasts([...toasts, newToast]);
-        }
-      } else {
-        try {
-          const { data } = await supabase
-            .from("ReactTodo")
-            .select()
-            .ilike("name", `%${search}%`)
-            .order("id", { ascending: false })
-            .not("completed_on", "is", null);
-
-          setTodos([]);
+        } else {
           setTodos(data);
-          let newToast = {
+          newToast = {
             id: uuidv4(),
             type: "success",
             message: "Completed Data fetched",
           };
-
-          setToasts([...toasts, newToast]);
-        } catch (error) {
-          let newToast = {
-            id: uuidv4(),
-            type: "error",
-            message: error,
-          };
-
-          setToasts([...toasts, newToast]);
         }
+        setToasts([...toasts, newToast]);
       }
 
       setShowBigSpinner(false);
@@ -160,36 +156,37 @@ function App() {
         let allToast = [...toasts];
         allToast.shift();
         setToasts(allToast);
-      }, 250);
+      }, 500);
     }
   }, [toasts]);
   const handleRemoveTodo = async (id) => {
-    try {
-      // eslint-disable-next-line
-      const { data } = await supabase
-        .from("ReactTodo")
-        .delete()
-        .match({ id: id });
-      let newToast = {
+    let newToast;
+    // eslint-disable-next-line
+    const { data, error } = await supabase
+      .from("ReactTodo")
+      .delete()
+      .match({ id: id });
+
+    if (error) {
+      newToast = {
+        id: uuidv4(),
+        type: "error",
+        message: error.message,
+      };
+    } else {
+      newToast = {
         id: uuidv4(),
         type: "success",
         message: "Task Deleted",
       };
       setDataCount(dataCount - 1);
-      setToasts([...toasts, newToast]);
-    } catch (error) {
-      let newToast = {
-        id: uuidv4(),
-        type: "error",
-        message: error,
-      };
-      setToasts([...toasts, newToast]);
+      removeCompleteFromIncomplete(id);
+      if (dataCount === 0) {
+        setSearchShow(false);
+        setFlag("all");
+      }
     }
-    removeCompleteFromIncomplete(id);
-    if (dataCount === 0) {
-      setSearchShow(false);
-      setFlag("all");
-    }
+    setToasts([...toasts, newToast]);
   };
 
   return (
@@ -240,6 +237,7 @@ function App() {
                 flag,
                 flagHandler,
                 toasts,
+                search,
                 setToasts,
                 dataCount,
                 setDataCount,

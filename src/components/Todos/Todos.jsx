@@ -15,6 +15,7 @@ const Todos = () => {
     toasts,
     dataCount,
     setToasts,
+    search,
     setDataCount,
     setShowEmpty,
   } = useContext(AppContext);
@@ -50,7 +51,9 @@ const Todos = () => {
           .insert([{ name: taskvalue, created_at: new Date(Date.now()) }]);
 
         setShow(!show);
-        if (flag !== "complete") todos.unshift(data[0]);
+        if (flag !== "complete" && data[0].name.includes(search)) {
+          todos.unshift(data[0]);
+        }
         setDataCount(dataCount + 1);
         let newToast = {
           id: uuidv4(),
