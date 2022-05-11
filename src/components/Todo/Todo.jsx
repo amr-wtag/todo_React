@@ -87,7 +87,7 @@ const Todo = ({ todo }) => {
       };
       setToasts([...toasts, newToast]);
     } else {
-      setNewName(newName.trim().replace(/\s+/g, " "));
+      setNewName(todo.name);
       editToggle();
     }
   };

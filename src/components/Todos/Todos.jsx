@@ -36,7 +36,7 @@ const Todos = () => {
     setShowEmpty(show);
   };
   const addhandler = async (e) => {
-    if (taskvalue.length < 3) {
+    if (taskvalue.trim().replace(/\s+/g, " ").length < 3) {
       let newToast = {
         id: uuidv4(),
         type: "error",
@@ -46,9 +46,12 @@ const Todos = () => {
     } else {
       setShowSpinner(true);
       try {
-        const { data } = await supabase
-          .from("ReactTodo")
-          .insert([{ name: taskvalue, created_at: new Date(Date.now()) }]);
+        const { data } = await supabase.from("ReactTodo").insert([
+          {
+            name: taskvalue.trim().replace(/\s+/g, " "),
+            created_at: new Date(Date.now()),
+          },
+        ]);
 
         setShow(!show);
         if (flag !== "complete" && data[0].name.includes(search)) {
