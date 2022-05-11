@@ -175,7 +175,7 @@ function App() {
         type: "success",
         message: "Task Deleted",
       };
-
+      setDataCount(dataCount - 1);
       setToasts([...toasts, newToast]);
     } catch (error) {
       let newToast = {
@@ -186,7 +186,7 @@ function App() {
       setToasts([...toasts, newToast]);
     }
     removeCompleteFromIncomplete(id);
-    if (dataCount === 1) {
+    if (dataCount === 0) {
       setSearchShow(false);
       setFlag("all");
     }
