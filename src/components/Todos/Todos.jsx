@@ -104,20 +104,21 @@ const Todos = () => {
 
         <div className="headerClass">
           <Button
-            className="create btn"
+            className={`create ${show && "blur"}`}
             onClick={toggleHandler}
             disabled={show}
           >
             <Icon src="Plus" />
             Create
           </Button>
-          <div className={`topButtonAll `}>
+          <div className={`topButtonAll`}>
             <Button
               className={`topButton ${
                 (dataCount === 0 || flag === "all") && "blurButton"
               }`}
               disabled={dataCount === 0}
               onClick={(e) => {
+                setShow(false);
                 flagHandler("all");
               }}
             >
@@ -129,6 +130,7 @@ const Todos = () => {
               }`}
               disabled={dataCount === 0}
               onClick={(e) => {
+                setShow(false);
                 flagHandler("incomplete");
               }}
             >
@@ -140,6 +142,7 @@ const Todos = () => {
               } `}
               disabled={dataCount === 0}
               onClick={(e) => {
+                setShow(false);
                 flagHandler("complete");
               }}
             >

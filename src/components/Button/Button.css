@@ -28,14 +28,14 @@
   justify-content: space-evenly;
   cursor: pointer;
   align-items: center;
-  margin-top: 5px;
+  /* margin-top: 5px; */
 }
 
 .topButtonAll {
   width: 232px;
   display: flex;
   justify-content: space-between;
-  margin-top: 8px;
+  /* margin-top: 8px; */
 }
 
 .searchButton {
@@ -71,6 +71,7 @@
   min-width: 136px;
   justify-content: space-between;
   align-items: center;
+  height: 34px;
 }
 .bottomButton {
   padding-bottom: 50px;
@@ -108,8 +109,8 @@
     font-size: 14px;
   }
 }
-@media screen and (max-width: 411px) {
+@media screen and (max-width: 391px) {
   .create {
-    margin: 5px 10px 0px 0px;
+    margin: 0px 10px 11px 0px;
   }
 }

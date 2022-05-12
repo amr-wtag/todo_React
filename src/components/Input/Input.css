@@ -14,7 +14,7 @@
 }
 @media screen and (max-width: 725px) {
   .input-search {
-    width: 260px;
+    width: 300px;
   }
 }
 
@@ -25,6 +25,6 @@
 }
 @media screen and (max-width: 411px) {
   .input-search {
-    width: 86px;
+    width: 73px;
   }
 }
