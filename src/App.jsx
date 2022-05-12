@@ -9,6 +9,7 @@ import Icon from "./components/Icon";
 import Tag from "./components/Tag";
 import Toaster from "./components/Toaster";
 import { supabase } from "./config/apiClient";
+
 export const AppContext = React.createContext();
 
 function App() {

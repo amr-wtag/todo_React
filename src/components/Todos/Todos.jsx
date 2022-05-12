@@ -103,7 +103,11 @@ const Todos = () => {
         </div>
 
         <div className="headerClass">
-          <Button className="create btn" onClick={toggleHandler}>
+          <Button
+            className="create btn"
+            onClick={toggleHandler}
+            disabled={show}
+          >
             <Icon src="Plus" />
             Create
           </Button>

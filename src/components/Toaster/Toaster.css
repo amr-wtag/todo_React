@@ -49,3 +49,22 @@
   border-radius: 5px;
   color: #ffffff;
 }
+@media screen and (max-width: 725px) {
+  .toast {
+    max-width: 300px;
+  }
+  .overToaster {
+    position: absolute;
+    left: calc(50% - 322px / 2);
+  }
+}
+
+@media screen and (max-width: 411px) {
+  .toast {
+    max-width: 200px;
+  }
+  .overToaster {
+    position: absolute;
+    left: calc(50% - 229px / 2);
+  }
+}

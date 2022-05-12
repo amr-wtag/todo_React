@@ -14,6 +14,7 @@ const Todo = ({ todo }) => {
     removeCompleteFromIncomplete,
     toasts,
     setToasts,
+    search,
   } = useContext(AppContext);
   const [newName, setNewName] = useState(todo.name);
   const [showEdit, setShowEdit] = useState(false);
@@ -85,6 +86,7 @@ const Todo = ({ todo }) => {
             .replace(/(<([^>]+)>)/gi, ""),
         })
         .match({ id: todo.id });
+
       if (error === null) {
         todo.name = newName
           .trim()
@@ -105,6 +107,7 @@ const Todo = ({ todo }) => {
         message: error ? error : "Task Edited",
       };
       setToasts([...toasts, newToast]);
+      if (!data[0].name.includes(search)) removeCompleteFromIncomplete(todo.id);
     } else {
       setNewName(todo.name);
       editToggle();
@@ -117,9 +120,7 @@ const Todo = ({ todo }) => {
         {showEdit === true ? (
           <TextArea
             id="editName"
-            className={`textarea-editName ${
-              (todo.isLoading || showLoading) && "blur"
-            }`}
+            className={`textarea-editName ${showLoading && "blur"}`}
             value={newName}
             onChange={edit}
             readOnly={showLoading}
@@ -141,7 +142,7 @@ const Todo = ({ todo }) => {
             <Tag
               id="showName"
               className={`${todo.completed_on && "tag-completed"} ${
-                (todo.isLoading || showLoading) && "blur"
+                showLoading && "blur"
               }`}
             >
               {todo.name}
@@ -149,20 +150,12 @@ const Todo = ({ todo }) => {
           </div>
         )}
         {!showEdit && (
-          <div
-            className={`todo-createdAt ${
-              (todo.isLoading || showLoading) && "blur"
-            }`}
-          >
+          <div className={`todo-createdAt ${showLoading && "blur"}`}>
             Created At: {format(new Date(todo.created_at), "dd.MM.yy")}
           </div>
         )}
       </div>
-      <div
-        className={`boxedButtonCompletedOn ${
-          (todo.isLoading || showLoading) && "blur"
-        }`}
-      >
+      <div className={`boxedButtonCompletedOn ${showLoading && "blur"}`}>
         <div className="allBoxedButon">
           {showEdit && (
             <Button className="saveButton " onClick={() => editValue(todo.id)}>
@@ -202,9 +195,7 @@ const Todo = ({ todo }) => {
         )}
       </div>
 
-      {(todo.isLoading || showLoading) && (
-        <Icon className="spinning rotateDiv" src="Spin" />
-      )}
+      {showLoading && <Icon className="spinning rotateDiv" src="Spin" />}
     </div>
   );
 };
