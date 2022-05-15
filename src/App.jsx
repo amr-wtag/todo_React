@@ -25,7 +25,6 @@ function App() {
   const [splash, setSplash] = useState(true);
   const [flagChange, setFlagChange] = useState(false);
   const [prevFlag, setPrevFlag] = useState("all");
-  const [progress, setProgress] = useState(true);
   //flag
   const flagHandler = (e) => {
     if (flag !== e) {
