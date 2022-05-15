@@ -50,37 +50,32 @@ const Todos = () => {
       setToasts([...toasts, newToast]);
     } else {
       setShowSpinner(true);
-      try {
-        const { data } = await supabase.from("ReactTodo").insert([
-          {
-            name: taskvalue
-              .trim()
-              .replace(/\s+/g, " ")
-              .replace(/(<([^>]+)>)/gi, ""),
-            created_at: new Date(Date.now()),
-          },
-        ]);
 
+      const { data, error } = await supabase.from("ReactTodo").insert([
+        {
+          name: taskvalue
+            .trim()
+            .replace(/\s+/g, " ")
+            .replace(/(<([^>]+)>)/gi, ""),
+          created_at: new Date(Date.now()),
+        },
+      ]);
+
+      if (error === null) {
         setShow(!show);
         if (flag !== "complete" && data[0].name.includes(search)) {
           todos.unshift(data[0]);
         }
         setDataCount(dataCount + 1);
-        let newToast = {
-          id: uuidv4(),
-          type: "success",
-          message: "New Task added",
-        };
-        setToasts([...toasts, newToast]);
         setTaskvalue("");
-      } catch (error) {
-        let newToast = {
-          id: uuidv4(),
-          type: "error",
-          message: "error",
-        };
-        setToasts([...toasts, newToast]);
       }
+      let newToast = {
+        id: uuidv4(),
+        type: error ? "error" : "success",
+        message: error ? error.message : "New Task added",
+      };
+      setToasts([...toasts, newToast]);
+
       setShowSpinner(false);
     }
   };

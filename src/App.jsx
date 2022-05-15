@@ -68,25 +68,12 @@ function App() {
           .select()
           .ilike("name", `%${search}%`)
           .order("id", { ascending: false });
-        setTodos([]);
-        // setDataCount(data.length);
-        setTodos(data);
+
         if (error) {
           if (splash) setSplash(false);
-          newToast = {
-            id: uuidv4(),
-            type: "error",
-            message: error.message,
-          };
-        }
-        // setToasts([...toasts, newToast]);
-        else {
-          newToast = {
-            id: uuidv4(),
-            type: "success",
-            message: "All Data fetched",
-          };
-
+        } else {
+          setTodos([]);
+          setTodos(data);
           if (splash) {
             setDataCount(data.length);
             setTimeout(() => {
@@ -94,7 +81,11 @@ function App() {
             }, 500);
           }
         }
-
+        newToast = {
+          id: uuidv4(),
+          type: error ? "error" : "success",
+          message: error ? error.message : "All Data fetched",
+        };
         setToasts([...toasts, newToast]);
       } else if (flag === "incomplete") {
         const { data, error } = await supabase
@@ -104,21 +95,17 @@ function App() {
           .is("completed_on", null)
           .order("id", { ascending: false });
 
-        setTodos([]);
-        if (error) {
-          newToast = {
-            id: uuidv4(),
-            type: "error",
-            message: error.message,
-          };
-        } else {
+        if (error === null) {
+          setTodos([]);
           setTodos(data);
-          newToast = {
-            id: uuidv4(),
-            type: "success",
-            message: "Incompleted Data fetched",
-          };
         }
+
+        newToast = {
+          id: uuidv4(),
+          type: error ? "error" : "success",
+          message: error ? error.message : "Incompleted Data fetched",
+        };
+
         setToasts([...toasts, newToast]);
       } else {
         const { data, error } = await supabase
@@ -127,21 +114,16 @@ function App() {
           .ilike("name", `%${search}%`)
           .order("id", { ascending: false })
           .not("completed_on", "is", null);
-        setTodos([]);
-        if (error) {
-          newToast = {
-            id: uuidv4(),
-            type: "error",
-            message: error.message,
-          };
-        } else {
+        if (error === null) {
+          setTodos([]);
           setTodos(data);
-          newToast = {
-            id: uuidv4(),
-            type: "success",
-            message: "Completed Data fetched",
-          };
         }
+
+        newToast = {
+          id: uuidv4(),
+          type: error ? "error" : "success",
+          message: error ? error.message : "Completed Data fetched",
+        };
         setToasts([...toasts, newToast]);
       }
 
@@ -168,18 +150,7 @@ function App() {
       .delete()
       .match({ id: id });
 
-    if (error) {
-      newToast = {
-        id: uuidv4(),
-        type: "error",
-        message: error.message,
-      };
-    } else {
-      newToast = {
-        id: uuidv4(),
-        type: "success",
-        message: "Task Deleted",
-      };
+    if (error === null) {
       setDataCount(dataCount - 1);
       removeCompleteFromIncomplete(id);
       if (dataCount === 0) {
@@ -187,6 +158,11 @@ function App() {
         setFlag("all");
       }
     }
+    newToast = {
+      id: uuidv4(),
+      type: error ? "error" : "success",
+      message: error ? error.message : "Task Deleted",
+    };
     setToasts([...toasts, newToast]);
   };
 

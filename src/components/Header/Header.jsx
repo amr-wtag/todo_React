@@ -20,7 +20,7 @@ const Header = () => {
       timer = setTimeout(later, delay);
     };
   };
-  const optimizedVersion = debounce(searchHandler, 250);
+  const optimizedVersion = debounce(searchHandler, 500);
   return (
     <div className={`overHead `}>
       <div className="Header">

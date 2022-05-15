@@ -36,29 +36,24 @@ const Todo = ({ todo }) => {
   const completeHandler = async (e) => {
     setShowLoading(true);
     const dateValue = new Date(Date.now());
-    try {
-      const { data } = await supabase
-        .from("ReactTodo")
-        .update({ completed_on: dateValue })
-        .match({ id: todo.id });
 
+    const { data, error } = await supabase
+      .from("ReactTodo")
+      .update({ completed_on: dateValue })
+      .match({ id: todo.id });
+
+    if (error === null) {
       todo.completed_on = data[0]["completed_on"];
       if (flag === "incomplete") removeCompleteFromIncomplete(todo.id);
-      let newToast = {
-        id: uuidv4(),
-        type: "success",
-        message: "Task Complted",
-      };
       if (showEdit) editToggle();
-      setToasts([...toasts, newToast]);
-    } catch (error) {
-      let newToast = {
-        id: uuidv4(),
-        type: "error",
-        message: error,
-      };
-      setToasts([...toasts, newToast]);
     }
+    let newToast = {
+      id: uuidv4(),
+      type: error ? "error" : "success",
+      message: error ? error.message : "Task Complted",
+    };
+
+    setToasts([...toasts, newToast]);
 
     if (flag !== "incomplete") setShowLoading(false);
   };
@@ -98,16 +93,18 @@ const Todo = ({ todo }) => {
             .replace(/\s+/g, " ")
             .replace(/(<([^>]+)>)/gi, ""),
         );
+        if (!data[0].name.includes(search)) {
+          removeCompleteFromIncomplete(todo.id);
+        }
+        editToggle();
       }
-      editToggle();
       setShowLoading(false);
       let newToast = {
         id: uuidv4(),
         type: error ? "error" : "success",
-        message: error ? error : "Task Edited",
+        message: error ? error.message : "Task Edited",
       };
       setToasts([...toasts, newToast]);
-      if (!data[0].name.includes(search)) removeCompleteFromIncomplete(todo.id);
     } else {
       setNewName(todo.name);
       editToggle();
