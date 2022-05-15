@@ -25,7 +25,7 @@ const Todos = () => {
   const [taskvalue, setTaskvalue] = useState("");
   const [showFullSpinner, setShowFullSpinner] = useState(false);
   const [show, setShow] = useState(false);
-  // addhandler
+
   //add task value
   const task = (e) => {
     setTaskvalue(e);
@@ -158,7 +158,9 @@ const Todos = () => {
                   onKeyPress={(e) => {
                     if (e.key === "Enter") {
                       e.preventDefault();
-                      addhandler(e);
+                      if (!showSpinner) {
+                        addhandler(e);
+                      }
                     }
                   }}
                   onFocus={function (e) {

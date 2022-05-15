@@ -37,7 +37,7 @@
   }
 }
 .faddingtoastOut {
-  animation: fadeout 3s infinite alternate /* forwards */;
+  animation: fadeout 3s infinite alternate;
 }
 .toast--success {
   background: #0bc475;

@@ -14,6 +14,7 @@
   font-weight: 700;
   cursor: pointer;
   padding: 10px;
+  font-size: 14px;
   font-family: Roboto, sans-serif;
 }
 .create {
@@ -81,13 +82,14 @@
   border: 1px solid #dde2ff;
 
   border-radius: 5px;
-  min-width: 117px;
+  min-width: 121px;
   min-height: 36px;
   font-size: 16px;
   font-family: "Roboto", sans-serif;
   color: white;
   cursor: pointer;
   margin-top: 20px;
+  padding-right: 10px;
 }
 
 .loadmoreOver {
@@ -102,11 +104,9 @@
 @media screen and (max-width: 725px) {
   .create {
     width: 95px;
-    font-size: 14px;
   }
   .topButton {
     height: 36px;
-    font-size: 14px;
   }
 }
 @media screen and (max-width: 391px) {

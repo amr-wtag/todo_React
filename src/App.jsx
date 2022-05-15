@@ -23,10 +23,13 @@ function App() {
   const [search, setSearch] = useState("");
   const [dataCount, setDataCount] = useState(0);
   const [splash, setSplash] = useState(true);
-
+  const [flagChange, setFlagChange] = useState(false);
+  const [prevFlag, setPrevFlag] = useState("all");
   //flag
   const flagHandler = (e) => {
     if (flag !== e) {
+      setFlagChange(true);
+      setPrevFlag(flag);
       setFlag(e);
     }
   };
@@ -37,12 +40,9 @@ function App() {
   //search value
   const searchvalue = (e) => {
     if (e.length > 2) {
-      /* setTimeout(() => { */
-      /* }, 500); */
-      // setTimeout(() => {
       setShowBigSpinner(true);
       setSearch(e);
-      // }, 500);
+
       setShowBigSpinner(false);
     }
   };
@@ -70,6 +70,9 @@ function App() {
           .order("id", { ascending: false });
 
         if (error) {
+          if (flagChange) {
+            setFlag(prevFlag);
+          }
           if (splash) setSplash(false);
         } else {
           setTodos([]);
@@ -98,6 +101,9 @@ function App() {
         if (error === null) {
           setTodos([]);
           setTodos(data);
+        } else {
+          setFlag(prevFlag);
+          setFlagChange(false);
         }
 
         newToast = {
@@ -117,6 +123,9 @@ function App() {
         if (error === null) {
           setTodos([]);
           setTodos(data);
+        } else {
+          setFlag(prevFlag);
+          setFlagChange(false);
         }
 
         newToast = {
