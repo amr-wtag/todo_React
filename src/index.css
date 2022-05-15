@@ -49,7 +49,7 @@ body {
   position: absolute;
   height: 100%;
   background-color: #7a8dfd;
-  animation: progress-animation 2s forwards;
+  animation: progress-animation 2s linear forwards;
 }
 @keyframes progress-animation {
   0% {
