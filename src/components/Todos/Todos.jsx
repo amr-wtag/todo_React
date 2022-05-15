@@ -18,6 +18,7 @@ const Todos = () => {
     search,
     setDataCount,
     setShowEmpty,
+    showBigSpinner,
   } = useContext(AppContext);
 
   const [top, setTop] = useState(12);
@@ -92,11 +93,10 @@ const Todos = () => {
   };
   return (
     <div>
-      <div className={`${showFullSpinner && "blur"}`}>
-        <div className="addTask">
-          <h1 className="addTaskH1">Add Tasks</h1>
-        </div>
-
+      <div className="addTask">
+        <h1 className="addTaskH1">Add Tasks</h1>
+      </div>
+      <div className={`${showBigSpinner && "blur"}`}>
         <div className="headerClass">
           <Button
             className={`create ${show && "blur"}`}
@@ -109,7 +109,9 @@ const Todos = () => {
           <div className={`topButtonAll`}>
             <Button
               className={`topButton ${
-                (dataCount === 0 || flag === "all") && "blurButton"
+                (dataCount === 0 || flag === "all") &&
+                !showBigSpinner &&
+                "blurButton"
               }`}
               disabled={dataCount === 0}
               onClick={(e) => {
@@ -121,7 +123,9 @@ const Todos = () => {
             </Button>
             <Button
               className={`topButton ${
-                (dataCount === 0 || flag === "incomplete") && "blurButton"
+                (dataCount === 0 || flag === "incomplete") &&
+                !showBigSpinner &&
+                "blurButton"
               }`}
               disabled={dataCount === 0}
               onClick={(e) => {
@@ -133,7 +137,9 @@ const Todos = () => {
             </Button>
             <Button
               className={`topButton  ${
-                (dataCount === 0 || flag === "complete") && "blurButton"
+                (dataCount === 0 || flag === "complete") &&
+                !showBigSpinner &&
+                "blurButton"
               } `}
               disabled={dataCount === 0}
               onClick={(e) => {

@@ -216,7 +216,7 @@ function App() {
                 ))}
             </div>
           </div>
-          <div className={`${showBigSpinner && "blur"}`}>
+          <div>
             <AppContext.Provider
               value={{
                 todos,
@@ -228,6 +228,7 @@ function App() {
                 dataCount,
                 setDataCount,
                 setShowEmpty,
+                showBigSpinner,
                 removeCompleteFromIncomplete,
                 handleRemoveTodo,
               }}
