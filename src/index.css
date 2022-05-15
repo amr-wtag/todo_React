@@ -48,6 +48,7 @@ body {
 .progress-bar {
   position: absolute;
   height: 100%;
+  width: 99%;
   background-color: #7a8dfd;
   animation: progress-animation 2s linear forwards;
 }
