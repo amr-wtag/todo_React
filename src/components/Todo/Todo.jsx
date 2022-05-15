@@ -19,6 +19,10 @@ const Todo = ({ todo }) => {
   const [newName, setNewName] = useState(todo.name);
   const [showEdit, setShowEdit] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
+  let completedDays = Math.ceil(
+    Math.abs(Date.parse(todo.completed_on) - Date.parse(todo.created_at)) /
+      (1000 * 60 * 60 * 24),
+  );
   const editToggle = (e) => {
     setShowEdit(!showEdit);
   };
@@ -178,18 +182,14 @@ const Todo = ({ todo }) => {
             <Icon src="Delete" />
           </Button>
         </div>
-        {todo.completed_on && (
-          <Tag className="tag-completedOn">
-            Completed in{" "}
-            {Math.ceil(
-              Math.abs(
-                Date.parse(todo.completed_on) - Date.parse(todo.created_at),
-              ) /
-                (1000 * 60 * 60 * 24),
-            )}{" "}
-            days
-          </Tag>
-        )}
+        {todo.completed_on &&
+          (completedDays > 1 ? (
+            <Tag className="tag-completedOn">
+              Completed in {completedDays} days
+            </Tag>
+          ) : (
+            <Tag className="tag-completedOn">Completed in a day</Tag>
+          ))}
       </div>
 
       {showLoading && <Icon className="spinning rotateDiv" src="Spin" />}
