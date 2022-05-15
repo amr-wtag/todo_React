@@ -25,6 +25,7 @@ function App() {
   const [splash, setSplash] = useState(true);
   const [flagChange, setFlagChange] = useState(false);
   const [prevFlag, setPrevFlag] = useState("all");
+  const [progress, setProgress] = useState(true);
   //flag
   const flagHandler = (e) => {
     if (flag !== e) {
@@ -178,13 +179,19 @@ function App() {
   return (
     <div className="App">
       {splash && (
-        <div className="splash faddingOut">
-          <div className="splashLogo">
-            <div className="splashIconLogo">
-              <Icon src="SplashLeaf" />
-            </div>
-            <div>
-              <Icon src="SplashTitle" />
+        <div>
+          <div className="container">
+            {" "}
+            <div className="progress-bar"></div>
+          </div>
+          <div className="splash faddingOut  ">
+            <div className="splashLogo">
+              <div className="splashIconLogo">
+                <Icon src="SplashLeaf" />
+              </div>
+              <div>
+                <Icon src="SplashTitle" />
+              </div>
             </div>
           </div>
         </div>
