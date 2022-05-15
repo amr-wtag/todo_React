@@ -32,7 +32,7 @@ const Header = () => {
             <Icon src="Title" />
           </div>
         </div>
-        <div className={`searchInputButton ${showBigSpinner && "blur"}`}>
+        <div className={`searchInputButton `}>
           {searchShow && (
             <Input
               id="search"

@@ -96,7 +96,7 @@ const Todos = () => {
       <div className="addTask">
         <h1 className="addTaskH1">Add Tasks</h1>
       </div>
-      <div className={`${showBigSpinner && "blur"}`}>
+      <div className={`${(showBigSpinner || showFullSpinner) && "blur"}`}>
         <div className="headerClass">
           <Button
             className={`create ${show && "blur"}`}
