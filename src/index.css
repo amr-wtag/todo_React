@@ -48,15 +48,21 @@ body {
 .progress-bar {
   position: absolute;
   height: 100%;
-  width: 99%;
+  width: 100%;
   background-color: #7a8dfd;
-  animation: progress-animation 2s linear forwards;
+  animation: progress-animation 2s forwards;
 }
 @keyframes progress-animation {
   0% {
     width: 0%;
   }
-  99% {
-    width: 99%;
+  95% {
+    width: 95%;
   }
+}
+.fullprogress-bar {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #7a8dfd;
 }

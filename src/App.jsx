@@ -25,6 +25,7 @@ function App() {
   const [splash, setSplash] = useState(true);
   const [flagChange, setFlagChange] = useState(false);
   const [prevFlag, setPrevFlag] = useState("all");
+  const [progress, setProgress] = useState(true);
   //flag
   const flagHandler = (e) => {
     if (flag !== e) {
@@ -73,12 +74,16 @@ function App() {
           if (flagChange) {
             setFlag(prevFlag);
           }
-          if (splash) setSplash(false);
+          if (splash) {
+            setProgress(false);
+            setSplash(false);
+          }
         } else {
           setTodos([]);
           setTodos(data);
           if (splash) {
             setDataCount(data.length);
+            setProgress(false);
             setTimeout(() => {
               setSplash(false);
             }, 500);
@@ -141,6 +146,7 @@ function App() {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flag, search]);
+
   //Toast useeffect
   useEffect(() => {
     if (toasts.length > 0) {
@@ -151,6 +157,7 @@ function App() {
       }, 500);
     }
   }, [toasts]);
+
   const handleRemoveTodo = async (id) => {
     let newToast;
     // eslint-disable-next-line
@@ -181,7 +188,11 @@ function App() {
         <div>
           <div className="container">
             {" "}
-            <div className="progress-bar"></div>
+            <div
+              className={`${progress && "progress-bar"} ${
+                !progress && "fullprogress-bar"
+              }`}
+            ></div>
           </div>
           <div className="splash faddingOut  ">
             <div className="splashLogo">
