@@ -7,7 +7,7 @@
 // });
 
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { /* mount, */ shallow } from "enzyme";
 
 import Input from "../index";
 describe("checking Input componenet", () => {
