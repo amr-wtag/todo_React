@@ -46,8 +46,8 @@ body {
   top: 20px;
 }
 .progress-bar {
-  position: absolute;
-  height: 100%;
+  position: fixed;
+  height: 15px;
   width: 100%;
   background-color: #7a8dfd;
   animation: progress-animation 2s forwards;
@@ -61,8 +61,8 @@ body {
   }
 }
 .fullprogress-bar {
-  position: absolute;
-  height: 100%;
+  position: fixed;
+  height: 15px;
   width: 100%;
   background-color: #7a8dfd;
   animation: fullprogress-animation 2s forwards;

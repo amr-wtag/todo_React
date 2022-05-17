@@ -43,6 +43,7 @@ test("check context values of Header component", () => {
       <Header />
     </AppContext.Provider>,
   );
-  console.log(output.find("Button").props());
+  // console.log(output.debug());
+  console.log(output.find("Button"));
   expect(output.find("Input").props().readOnly).toBeFalsy();
 });

@@ -20,7 +20,7 @@ const Header = () => {
       timer = setTimeout(later, delay);
     };
   };
-  const optimizedVersion = debounce(searchHandler, 500);
+  // const optimizedVersion = debounce(searchHandler, 500);
   return (
     <div className={`overHead `}>
       <div className="Header">
@@ -39,7 +39,7 @@ const Header = () => {
               autoFocus
               className="input-search"
               readOnly={showBigSpinner}
-              onKeyUp={optimizedVersion}
+              onKeyUp={debounce(searchHandler, 500)}
             />
           )}
           <Button
