@@ -9,6 +9,7 @@ import Icon from "./components/Icon";
 import Tag from "./components/Tag";
 import Toaster from "./components/Toaster";
 import { supabase } from "./config/apiClient";
+import classNames from "classnames";
 
 export const AppContext = React.createContext();
 
@@ -189,9 +190,10 @@ function App() {
           <div className="container">
             {" "}
             <div
-              className={`${progress && "progress-bar"} ${
-                !progress && "fullprogress-bar"
-              }`}
+              className={classNames({
+                "progress-bar": progress,
+                "fullprogress-bar": !progress,
+              })}
             ></div>
           </div>
           <div className="splash faddingOut  ">
@@ -233,7 +235,7 @@ function App() {
                 ))}
             </div>
           </div>
-          <div>
+          <div className="bodyClass">
             <AppContext.Provider
               value={{
                 todos,
