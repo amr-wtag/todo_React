@@ -1,6 +1,10 @@
 .overHead {
   border: 1px solid #dde2ff;
   background-color: white;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 99999;
 }
 .Header {
   display: flex;
