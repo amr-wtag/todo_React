@@ -13,6 +13,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   visibility: hidden;
   transition: opacity 0.2s, top 0.2s, visibility 0.2s;
+  top: 37px;
 }
 .toaster {
   display: flex;
