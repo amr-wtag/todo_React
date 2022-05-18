@@ -19,3 +19,7 @@
   justify-content: center;
   height: 712px;
 }
+.bodyClass {
+  position: relative;
+  top: 44px;
+}
