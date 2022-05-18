@@ -7,6 +7,7 @@ import Button from "../Button";
 import { format } from "date-fns";
 import { supabase } from "../../config/apiClient";
 import { AppContext } from "../../App";
+import classNames from "classnames";
 const Todo = ({ todo }) => {
   const {
     handleRemoveTodo,
@@ -121,7 +122,7 @@ const Todo = ({ todo }) => {
         {showEdit === true ? (
           <TextArea
             id="editName"
-            className={`textarea-editName ${showLoading && "blur"}`}
+            className={classNames("textarea-editName", { blur: showLoading })}
             value={newName}
             onChange={edit}
             readOnly={showLoading}
@@ -142,21 +143,24 @@ const Todo = ({ todo }) => {
           <div>
             <Tag
               id="showName"
-              className={`${todo.completed_on && "tag-completed"} ${
-                showLoading && "blur"
-              }`}
+              className={classNames({
+                "tag-completed": todo.completed_on,
+                blur: showLoading,
+              })}
             >
               {todo.name}
             </Tag>
           </div>
         )}
         {!showEdit && (
-          <div className={`todo-createdAt ${showLoading && "blur"}`}>
+          <div className={classNames("todo-createdAt", { blur: showLoading })}>
             Created At: {format(new Date(todo.created_at), "dd.MM.yy")}
           </div>
         )}
       </div>
-      <div className={`boxedButtonCompletedOn ${showLoading && "blur"}`}>
+      <div
+        className={classNames("boxedButtonCompletedOn", { blur: showLoading })}
+      >
         <div className="allBoxedButon">
           {showEdit && (
             <Button className="saveButton " onClick={() => editValue(todo.id)}>
@@ -165,7 +169,7 @@ const Todo = ({ todo }) => {
           )}
           {!todo.completed_on && (
             <Button
-              className="boxedButton "
+              className="boxedButton"
               onClick={() => {
                 completeHandler(todo.id);
               }}

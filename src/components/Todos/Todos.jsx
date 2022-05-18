@@ -7,6 +7,7 @@ import Button from "../Button";
 import { v4 as uuidv4 } from "uuid";
 import { supabase } from "../../config/apiClient";
 import { AppContext } from "../../App";
+import classNames from "classnames";
 const Todos = () => {
   const {
     todos,
@@ -96,23 +97,22 @@ const Todos = () => {
       <div className="addTask">
         <h1 className="addTaskH1">Add Tasks</h1>
       </div>
-      <div className={`${(showBigSpinner || showFullSpinner) && "blur"}`}>
+      <div className={classNames({ blur: showBigSpinner || showFullSpinner })}>
         <div className="headerClass">
           <Button
-            className={`create ${show && "blur"}`}
+            className={classNames("create", { blur: show })}
             onClick={toggleHandler}
             disabled={show}
           >
             <Icon src="Plus" />
             Create
           </Button>
-          <div className={`topButtonAll`}>
+          <div className="topButtonAll">
             <Button
-              className={`topButton ${
-                (dataCount === 0 || flag === "all") &&
-                !showBigSpinner &&
-                "blurButton"
-              }`}
+              className={classNames("topButton", {
+                blurButton:
+                  (dataCount === 0 || flag === "all") && !showBigSpinner,
+              })}
               disabled={dataCount === 0}
               onClick={(e) => {
                 setShow(false);
@@ -122,11 +122,10 @@ const Todos = () => {
               All
             </Button>
             <Button
-              className={`topButton ${
-                (dataCount === 0 || flag === "incomplete") &&
-                !showBigSpinner &&
-                "blurButton"
-              }`}
+              className={classNames("topButton", {
+                blurButton:
+                  (dataCount === 0 || flag === "incomplete") && !showBigSpinner,
+              })}
               disabled={dataCount === 0}
               onClick={(e) => {
                 setShow(false);
@@ -136,11 +135,10 @@ const Todos = () => {
               Incomplete
             </Button>
             <Button
-              className={`topButton  ${
-                (dataCount === 0 || flag === "complete") &&
-                !showBigSpinner &&
-                "blurButton"
-              } `}
+              className={classNames("topButton", {
+                blurButton:
+                  (dataCount === 0 || flag === "complete") && !showBigSpinner,
+              })}
               disabled={dataCount === 0}
               onClick={(e) => {
                 setShow(false);
@@ -156,7 +154,9 @@ const Todos = () => {
             <div id="todo" className="todo">
               <div>
                 <TextArea
-                  className={`textarea-editName ${showSpinner && "blur"}`}
+                  className={classNames("textarea-editName", {
+                    blur: showSpinner,
+                  })}
                   placeholder="Add new task"
                   autoFocus
                   onChange={(e) => task(e.target.value)}
@@ -178,7 +178,7 @@ const Todos = () => {
               </div>
               <div className="todo-addDel">
                 <Button
-                  className={`saveButton ${showSpinner && "blur"}`}
+                  className={classNames("saveButton", { blur: showSpinner })}
                   onClick={addhandler}
                 >
                   Add Task

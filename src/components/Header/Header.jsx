@@ -3,6 +3,7 @@ import Button from "../Button";
 import Icon from "../Icon";
 import Input from "../Input";
 import { AppContext } from "../../App";
+import classNames from "classnames";
 const Header = () => {
   const { SearchToggle, searchShow, searchvalue, dataCount, showBigSpinner } =
     useContext(AppContext);
@@ -22,7 +23,7 @@ const Header = () => {
   };
   // const optimizedVersion = debounce(searchHandler, 500);
   return (
-    <div className={`overHead `}>
+    <div className={"overHead "}>
       <div className="Header">
         <div className="logo">
           <div className="IconLogo">
@@ -32,7 +33,7 @@ const Header = () => {
             <Icon src="Title" />
           </div>
         </div>
-        <div className={`searchInputButton `}>
+        <div className="searchInputButton">
           {searchShow && (
             <Input
               id="search"
@@ -43,7 +44,9 @@ const Header = () => {
             />
           )}
           <Button
-            className={`searchButton ${dataCount === 0 && "blurButton"}`}
+            className={classNames("searchButton", {
+              blurButton: dataCount === 0,
+            })}
             onClick={SearchToggle}
           >
             <Icon src="Search" />
