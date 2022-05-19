@@ -48,4 +48,8 @@ describe("checking todo component", () => {
     console.log(output.find(".textarea-editName").debug());
     expect(output.find(".textarea-editName").hostNodes().length).toBe(0);
   });
+  test("if showEdit is true created at will not be available", () => {
+    output.find("Button .boxedButton").children().at(1).simulate("click");
+    expect(output.find(".todo-createdAt").hostNodes().length).toBe(0);
+  });
 });
