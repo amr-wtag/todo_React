@@ -25,7 +25,7 @@ const Todo = ({ todo }) => {
       (1000 * 60 * 60 * 24),
   );
   const editToggle = (e) => {
-    setShowEdit(!showEdit);
+    setShowEdit((prev) => !prev);
   };
   const edit = (e) => {
     setNewName(e.target.value);
@@ -119,7 +119,7 @@ const Todo = ({ todo }) => {
   return (
     <div id="todo" className="todo">
       <div>
-        {showEdit === true ? (
+        {showEdit ? (
           <TextArea
             id="editName"
             className={classNames("textarea-editName", { blur: showLoading })}
@@ -153,9 +153,9 @@ const Todo = ({ todo }) => {
           </div>
         )}
         {!showEdit && (
-          <div className={classNames("todo-createdAt", { blur: showLoading })}>
+          <Tag className={classNames("todo-createdAt", { blur: showLoading })}>
             Created At: {format(new Date(todo.created_at), "dd.MM.yy")}
-          </div>
+          </Tag>
         )}
       </div>
       <div
@@ -163,12 +163,13 @@ const Todo = ({ todo }) => {
       >
         <div className="allBoxedButon">
           {showEdit && (
-            <Button className="saveButton " onClick={() => editValue(todo.id)}>
+            <Button className="saveButton" onClick={() => editValue(todo.id)}>
               Save
             </Button>
           )}
           {!todo.completed_on && (
             <Button
+              id="complete"
               className="boxedButton"
               onClick={() => {
                 completeHandler(todo.id);
@@ -178,11 +179,15 @@ const Todo = ({ todo }) => {
             </Button>
           )}
           {!todo.completed_on && !showEdit && (
-            <Button onClick={editToggle} className="boxedButton ">
+            <Button id="edit" onClick={editToggle} className="boxedButton">
               <Icon src="Edit" />
             </Button>
           )}
-          <Button className="boxedButton" onClick={() => deletetodo(todo.id)}>
+          <Button
+            id="delete"
+            className="boxedButton"
+            onClick={() => deletetodo(todo.id)}
+          >
             <Icon src="Delete" />
           </Button>
         </div>
