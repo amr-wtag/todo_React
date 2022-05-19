@@ -40,7 +40,6 @@ describe("checking textarea componenet", () => {
     expect(mockFn).toHaveBeenCalled();
   });
   test("check TextArea component check value", () => {
-    const mockFn = jest.fn();
     const output = shallow(<TextArea value="textarea value" />);
 
     expect(output.find("textarea").props().value).toBe("textarea value");

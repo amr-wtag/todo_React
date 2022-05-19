@@ -22,6 +22,7 @@
 .overToaster {
   position: absolute;
   left: calc(50% - 392px / 2);
+  z-index: 9999;
 }
 .toast--visible {
   position: relative;
