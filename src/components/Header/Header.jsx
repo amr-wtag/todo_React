@@ -9,8 +9,8 @@ import Input from "../Input";
 const Header = () => {
   const { SearchToggle, searchShow, searchvalue, dataCount, isLoading } =
     useContext(AppContext);
-  const searchHandler = (e) => {
-    searchvalue(e.target.value);
+  const searchHandler = (event) => {
+    searchvalue(event.target.value);
   };
   const debounce = (fn, delay) => {
     let timer;

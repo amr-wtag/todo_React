@@ -29,11 +29,11 @@ function App() {
   const [prevFlag, setPrevFlag] = useState("all");
   const [progress, setProgress] = useState(true);
   //flag
-  const flagHandler = (e) => {
-    if (flag !== e) {
+  const flagHandler = (event) => {
+    if (flag !== event) {
       setIsFlagChange(true);
       setPrevFlag(flag);
-      setFlag(e);
+      setFlag(event);
     }
   };
   const removeCompleteFromIncomplete = (id) => {
@@ -41,10 +41,10 @@ function App() {
     setTodos(filtertodos);
   };
   //search value
-  const searchvalue = (e) => {
-    if (e.length > 2) {
+  const searchvalue = (event) => {
+    if (event.length > 2) {
       setIsLoading(true);
-      setSearch(e);
+      setSearch(event);
 
       setIsLoading(false);
     }
@@ -62,7 +62,7 @@ function App() {
 
   // useEffect
   useEffect(() => {
-    const fetchData = async (e) => {
+    const fetchData = async (event) => {
       setIsLoading(true);
       let newToast;
       if (flag === "all") {

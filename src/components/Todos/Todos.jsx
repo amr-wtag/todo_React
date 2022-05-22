@@ -31,15 +31,15 @@ const Todos = () => {
   const [show, setShow] = useState(false);
 
   //add task value
-  const task = (e) => {
-    setTaskvalue(e);
+  const task = (event) => {
+    setTaskvalue(event);
   };
-  const toggleHandler = (e) => {
-    e.preventDefault();
+  const toggleHandler = (event) => {
+    event.preventDefault();
     setShow(!show);
     setIsEmpty(show);
   };
-  const addhandler = async (e) => {
+  const addhandler = async (event) => {
     if (
       taskvalue
         .trim()
@@ -83,7 +83,7 @@ const Todos = () => {
       setShowSpinner(false);
     }
   };
-  const moreValue = (e) => {
+  const moreValue = (event) => {
     setIsLoading(true);
     setTimeout(() => {
       setTop(top + 12);
@@ -91,7 +91,7 @@ const Todos = () => {
       setIsLoading(false);
     }, 300);
   };
-  const showless = (e) => {
+  const showless = (event) => {
     setTop(12);
   };
   return (
@@ -115,7 +115,7 @@ const Todos = () => {
                 blurButton: (dataCount === 0 || flag === "all") && !isLoading,
               })}
               disabled={dataCount === 0}
-              onClick={(e) => {
+              onClick={(event) => {
                 setShow(false);
                 flagHandler("all");
               }}
@@ -128,7 +128,7 @@ const Todos = () => {
                   (dataCount === 0 || flag === "incomplete") && !isLoading,
               })}
               disabled={dataCount === 0}
-              onClick={(e) => {
+              onClick={(event) => {
                 setShow(false);
                 flagHandler("incomplete");
               }}
@@ -141,7 +141,7 @@ const Todos = () => {
                   (dataCount === 0 || flag === "complete") && !isLoading,
               })}
               disabled={dataCount === 0}
-              onClick={(e) => {
+              onClick={(event) => {
                 setShow(false);
                 flagHandler("complete");
               }}
@@ -160,20 +160,20 @@ const Todos = () => {
                   })}
                   placeholder="Add new task"
                   autoFocus
-                  onChange={(e) => task(e.target.value)}
+                  onChange={(event) => task(event.target.value)}
                   readOnly={showSpinner}
-                  onKeyPress={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
+                  onKeyPress={(event) => {
+                    if (event.key === "Enter") {
+                      event.preventDefault();
                       if (!showSpinner) {
-                        addhandler(e);
+                        addhandler(event);
                       }
                     }
                   }}
-                  onFocus={function (e) {
-                    var val = e.target.value;
-                    e.target.value = "";
-                    e.target.value = val;
+                  onFocus={function (event) {
+                    var val = event.target.value;
+                    event.target.value = "";
+                    event.target.value = val;
                   }}
                 />
               </div>

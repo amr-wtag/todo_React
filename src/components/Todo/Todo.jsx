@@ -28,11 +28,11 @@ const Todo = ({ todo }) => {
       addSuffix: true,
     });
 
-  const editToggle = (e) => {
+  const editToggle = (eevent) => {
     setIsEdit((prev) => !prev);
   };
-  const edit = (e) => {
-    setNewName(e.target.value);
+  const edit = (event) => {
+    setNewName(event.target.value);
   };
   // Delete task
   const deletetodo = (id) => {
@@ -131,14 +131,14 @@ const Todo = ({ todo }) => {
             onChange={edit}
             readOnly={isLoading}
             autoFocus
-            onFocus={(e) => {
-              var val = e.target.value;
-              e.target.value = "";
-              e.target.value = val;
+            onFocus={(event) => {
+              var val = event.target.value;
+              event.target.value = "";
+              event.target.value = val;
             }}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault();
                 editValue(todo.id);
               }
             }}
