@@ -65,84 +65,89 @@ function App() {
     const fetchData = async (event) => {
       setIsLoading(true);
       let newToast;
-      if (flag === "all") {
-        const { data, error } = await supabase
-          .from("ReactTodo")
-          .select()
-          .ilike("name", `%${search}%`)
-          .order("id", { ascending: false });
+      switch (flag) {
+        case "all": {
+          const { data, error } = await supabase
+            .from("ReactTodo")
+            .select()
+            .ilike("name", `%${search}%`)
+            .order("id", { ascending: false });
 
-        if (error) {
-          if (isFlagChange) {
-            setFlag(prevFlag);
-          }
-          if (splash) {
-            setProgress(false);
-            setSplash(false);
-          }
-        } else {
-          setTodos([]);
-          setTodos(data);
-          if (splash) {
-            setDataCount(data.length);
-            setProgress(false);
-            setTimeout(() => {
+          if (error) {
+            if (isFlagChange) {
+              setFlag(prevFlag);
+            }
+            if (splash) {
+              setProgress(false);
               setSplash(false);
-            }, 500);
+            }
+          } else {
+            setTodos([]);
+            setTodos(data);
+            if (splash) {
+              setDataCount(data.length);
+              setProgress(false);
+              setTimeout(() => {
+                setSplash(false);
+              }, 500);
+            }
           }
+          newToast = {
+            id: uuidv4(),
+            type: error ? "error" : "success",
+            message: error ? error.message : "All Data fetched",
+          };
+          setToasts([...toasts, newToast]);
+          break;
         }
-        newToast = {
-          id: uuidv4(),
-          type: error ? "error" : "success",
-          message: error ? error.message : "All Data fetched",
-        };
-        setToasts([...toasts, newToast]);
-      } else if (flag === "incomplete") {
-        const { data, error } = await supabase
-          .from("ReactTodo")
-          .select()
-          .ilike("name", `%${search}%`)
-          .is("completed_on", null)
-          .order("id", { ascending: false });
+        case "incomplete": {
+          const { data, error } = await supabase
+            .from("ReactTodo")
+            .select()
+            .ilike("name", `%${search}%`)
+            .is("completed_on", null)
+            .order("id", { ascending: false });
 
-        if (error === null) {
-          setTodos([]);
-          setTodos(data);
-        } else {
-          setFlag(prevFlag);
-          setIsFlagChange(false);
+          if (error === null) {
+            setTodos([]);
+            setTodos(data);
+          } else {
+            setFlag(prevFlag);
+            setIsFlagChange(false);
+          }
+
+          newToast = {
+            id: uuidv4(),
+            type: error ? "error" : "success",
+            message: error ? error.message : "Incompleted Data fetched",
+          };
+
+          setToasts([...toasts, newToast]);
+          break;
         }
+        default: {
+          const { data, error } = await supabase
+            .from("ReactTodo")
+            .select()
+            .ilike("name", `%${search}%`)
+            .order("id", { ascending: false })
+            .not("completed_on", "is", null);
+          if (error === null) {
+            setTodos([]);
+            setTodos(data);
+          } else {
+            setFlag(prevFlag);
+            setIsFlagChange(false);
+          }
 
-        newToast = {
-          id: uuidv4(),
-          type: error ? "error" : "success",
-          message: error ? error.message : "Incompleted Data fetched",
-        };
-
-        setToasts([...toasts, newToast]);
-      } else {
-        const { data, error } = await supabase
-          .from("ReactTodo")
-          .select()
-          .ilike("name", `%${search}%`)
-          .order("id", { ascending: false })
-          .not("completed_on", "is", null);
-        if (error === null) {
-          setTodos([]);
-          setTodos(data);
-        } else {
-          setFlag(prevFlag);
-          setIsFlagChange(false);
+          newToast = {
+            id: uuidv4(),
+            type: error ? "error" : "success",
+            message: error ? error.message : "Completed Data fetched",
+          };
+          setToasts([...toasts, newToast]);
         }
-
-        newToast = {
-          id: uuidv4(),
-          type: error ? "error" : "success",
-          message: error ? error.message : "Completed Data fetched",
-        };
-        setToasts([...toasts, newToast]);
       }
-
       setIsLoading(false);
     };
     fetchData();

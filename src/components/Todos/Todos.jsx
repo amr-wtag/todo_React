@@ -39,13 +39,12 @@ const Todos = () => {
     setShow(!show);
     setIsEmpty(show);
   };
-  const addhandler = async (event) => {
-    if (
-      taskvalue
-        .trim()
-        .replace(/\s+/g, " ")
-        .replace(/(<([^>]+)>)/gi, "").length < 3
-    ) {
+  const addhandler = async () => {
+    const updatedName = taskvalue
+      .trim()
+      .replace(/\s+/g, " ")
+      .replace(/(<([^>]+)>)/gi, "");
+    if (updatedName.length < 3) {
       let newToast = {
         id: uuidv4(),
         type: "error",
@@ -57,10 +56,7 @@ const Todos = () => {
 
       const { data, error } = await supabase.from("ReactTodo").insert([
         {
-          name: taskvalue
-            .trim()
-            .replace(/\s+/g, " ")
-            .replace(/(<([^>]+)>)/gi, ""),
+          name: updatedName,
           created_at: new Date(Date.now()),
         },
       ]);
@@ -115,7 +111,7 @@ const Todos = () => {
                 blurButton: (dataCount === 0 || flag === "all") && !isLoading,
               })}
               disabled={dataCount === 0}
-              onClick={(event) => {
+              onClick={() => {
                 setShow(false);
                 flagHandler("all");
               }}
@@ -141,7 +137,7 @@ const Todos = () => {
                   (dataCount === 0 || flag === "complete") && !isLoading,
               })}
               disabled={dataCount === 0}
-              onClick={(event) => {
+              onClick={() => {
                 setShow(false);
                 flagHandler("complete");
               }}

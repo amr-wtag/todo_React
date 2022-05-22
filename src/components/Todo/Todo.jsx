@@ -24,9 +24,7 @@ const Todo = ({ todo }) => {
   const [isLoading, setIsLoading] = useState(false);
   const completedDays =
     todo.completed_on &&
-    formatDistance(Date.parse(todo.completed_on), Date.parse(todo.created_at), {
-      addSuffix: true,
-    });
+    formatDistance(Date.parse(todo.completed_on), Date.parse(todo.created_at));
 
   const editToggle = (eevent) => {
     setIsEdit((prev) => !prev);
@@ -42,7 +40,7 @@ const Todo = ({ todo }) => {
   };
   // on Complete
 
-  const completeHandler = async (e) => {
+  const completeHandler = async () => {
     setIsLoading(true);
     const dateValue = new Date(Date.now());
 
@@ -67,41 +65,24 @@ const Todo = ({ todo }) => {
     if (flag !== "incomplete") setIsLoading(false);
   };
 
-  const editValue = async (e) => {
-    if (
-      newName
-        .trim()
-        .replace(/\s+/g, " ")
-        .replace(/(<([^>]+)>)/gi, "").length > 2 &&
-      todo.name !==
-        newName
-          .trim()
-          .replace(/\s+/g, " ")
-          .replace(/(<([^>]+)>)/gi, "")
-    ) {
+  const editValue = async () => {
+    const updatedName = newName
+      .trim()
+      .replace(/\s+/g, " ")
+      .replace(/(<([^>]+)>)/gi, "");
+    if (updatedName.length > 2 && todo.name !== updatedName) {
       setIsLoading(true);
       // eslint-disable-next-line
       const { data, error } = await supabase
         .from("ReactTodo")
         .update({
-          name: newName
-            .trim()
-            .replace(/\s+/g, " ")
-            .replace(/(<([^>]+)>)/gi, ""),
+          name: updatedName,
         })
         .match({ id: todo.id });
 
       if (error === null) {
-        todo.name = newName
-          .trim()
-          .replace(/\s+/g, " ")
-          .replace(/(<([^>]+)>)/gi, "");
-        setNewName(
-          newName
-            .trim()
-            .replace(/\s+/g, " ")
-            .replace(/(<([^>]+)>)/gi, ""),
-        );
+        todo.name = updatedName;
+        setNewName(updatedName);
         if (!data[0].name.includes(search)) {
           removeCompleteFromIncomplete(todo.id);
         }
@@ -199,7 +180,7 @@ const Todo = ({ todo }) => {
           (completedDays.includes("minute") ? (
             <Tag className="tag-completedOn">Completed in a day</Tag>
           ) : (
-            <Tag className="tag-completedOn">Completed {completedDays}</Tag>
+            <Tag className="tag-completedOn">Completed in {completedDays}</Tag>
           ))}
       </div>
 
