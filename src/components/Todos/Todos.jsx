@@ -79,7 +79,7 @@ const Todos = () => {
       setShowSpinner(false);
     }
   };
-  const moreValue = (event) => {
+  const moreValue = () => {
     setIsLoading(true);
     setTimeout(() => {
       setTop(top + 12);
@@ -87,7 +87,7 @@ const Todos = () => {
       setIsLoading(false);
     }, 300);
   };
-  const showless = (event) => {
+  const showless = () => {
     setTop(12);
   };
   return (
@@ -124,7 +124,7 @@ const Todos = () => {
                   (dataCount === 0 || flag === "incomplete") && !isLoading,
               })}
               disabled={dataCount === 0}
-              onClick={(event) => {
+              onClick={() => {
                 setShow(false);
                 flagHandler("incomplete");
               }}

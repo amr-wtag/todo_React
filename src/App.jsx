@@ -62,7 +62,7 @@ function App() {
 
   // useEffect
   useEffect(() => {
-    const fetchData = async (event) => {
+    const fetchData = async () => {
       setIsLoading(true);
       let newToast;
       switch (flag) {

@@ -26,7 +26,7 @@ const Todo = ({ todo }) => {
     todo.completed_on &&
     formatDistance(Date.parse(todo.completed_on), Date.parse(todo.created_at));
 
-  const editToggle = (eevent) => {
+  const editToggle = () => {
     setIsEdit((prev) => !prev);
   };
   const edit = (event) => {
