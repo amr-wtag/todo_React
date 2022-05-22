@@ -1,32 +1,32 @@
 .toast {
+  border: 1px solid;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   left: 0;
-  right: 0;
   margin: auto;
+  margin-top: 10px;
   max-width: 400px;
   min-height: 25px;
   padding: 6px;
   padding-top: 10px;
-  margin-top: 10px;
-  text-align: center;
-  border: 1px solid;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  visibility: hidden;
+  right: 0;
   transition: opacity 0.2s, top 0.2s, visibility 0.2s;
+  text-align: center;
   top: 37px;
+  visibility: hidden;
 }
 .toaster {
   display: flex;
   flex-direction: column;
 }
 .overToaster {
-  position: absolute;
   left: calc(50% - 392px / 2);
+  position: absolute;
   z-index: 9999;
 }
 .toast--visible {
-  position: relative;
   opacity: 1;
+  position: relative;
   visibility: visible;
   width: 500px;
 }
@@ -41,32 +41,33 @@
 .faddingtoastOut {
   animation: fadeout 3s infinite alternate;
 }
-.toast--success {
-  background: #0bc475;
-  border-radius: 5px;
-  color: #ffffff;
-}
 .toast--error {
   background: #e85f5f;
   border-radius: 5px;
   color: #ffffff;
 }
+.toast--success {
+  background: #0bc475;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
 @media screen and (max-width: 725px) {
+  .overToaster {
+    left: calc(50% - 322px / 2);
+    position: absolute;
+  }
   .toast {
     max-width: 300px;
-  }
-  .overToaster {
-    position: absolute;
-    left: calc(50% - 322px / 2);
   }
 }
 
 @media screen and (max-width: 411px) {
+  .overToaster {
+    left: calc(50% - 229px / 2);
+    position: absolute;
+  }
   .toast {
     max-width: 200px;
-  }
-  .overToaster {
-    position: absolute;
-    left: calc(50% - 229px / 2);
   }
 }

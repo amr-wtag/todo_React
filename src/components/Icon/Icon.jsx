@@ -1,15 +1,15 @@
 import { ReactComponent as Spin } from "../../images/bigspin.svg";
-import { ReactComponent as EmptyScreen } from "../../images/emptyScreen.svg";
-import { ReactComponent as Edit } from "../../images/edit.svg";
 import { ReactComponent as Check } from "../../images/check.svg";
-import { ReactComponent as Plus } from "../../images/plus.svg";
+import { ReactComponent as Edit } from "../../images/edit.svg";
+import { ReactComponent as EmptyScreen } from "../../images/emptyScreen.svg";
 import { ReactComponent as Leaf } from "../../images/leaf_1.svg";
-import { ReactComponent as SplashLeaf } from "../../images/splashLeaf.svg";
-import { ReactComponent as Title } from "../../images/Todos.svg";
-import { ReactComponent as SplashTitle } from "../../images/splashTodos.svg";
+import { ReactComponent as Plus } from "../../images/plus.svg";
 import { ReactComponent as Search } from "../../images/search.svg";
-import { ReactComponent as Delete } from "../../images/Vector.svg";
+import { ReactComponent as SplashLeaf } from "../../images/splashLeaf.svg";
+import { ReactComponent as SplashTitle } from "../../images/splashTodos.svg";
 import { ReactComponent as Tick } from "../../images/tick.svg";
+import { ReactComponent as Title } from "../../images/Todos.svg";
+import { ReactComponent as Delete } from "../../images/Vector.svg";
 
 // Icon component
 export const Icon = ({ src, className }) => {

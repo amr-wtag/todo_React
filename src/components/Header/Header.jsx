@@ -1,11 +1,13 @@
+//absolute imports
+import classNames from "classnames";
 import React, { useContext } from "react";
+//relative imports
+import { AppContext } from "../../App";
 import Button from "../Button";
 import Icon from "../Icon";
 import Input from "../Input";
-import { AppContext } from "../../App";
-import classNames from "classnames";
 const Header = () => {
-  const { SearchToggle, searchShow, searchvalue, dataCount, showBigSpinner } =
+  const { SearchToggle, searchShow, searchvalue, dataCount, isLoading } =
     useContext(AppContext);
   const searchHandler = (e) => {
     searchvalue(e.target.value);
@@ -39,7 +41,7 @@ const Header = () => {
               id="search"
               autoFocus
               className="input-search"
-              readOnly={showBigSpinner}
+              readOnly={isLoading}
               onKeyUp={debounce(searchHandler, 500)}
             />
           )}

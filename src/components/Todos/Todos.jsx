@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useContext } from "react";
-import Todo from "../Todo";
-import TextArea from "../TextArea";
-import Icon from "../Icon";
-import Button from "../Button";
-import { v4 as uuidv4 } from "uuid";
-import { supabase } from "../../config/apiClient";
-import { AppContext } from "../../App";
+//absolute imports
 import classNames from "classnames";
+import React, { useContext, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+//relative imports
+import { AppContext } from "../../App";
+import { supabase } from "../../config/apiClient";
+import Button from "../Button";
+import Icon from "../Icon";
+import TextArea from "../TextArea";
+import Todo from "../Todo";
 const Todos = () => {
   const {
     todos,
@@ -18,14 +20,14 @@ const Todos = () => {
     setToasts,
     search,
     setDataCount,
-    setShowEmpty,
-    showBigSpinner,
+    setIsEmpty,
+    isLoading,
+    setIsLoading,
   } = useContext(AppContext);
 
   const [top, setTop] = useState(12);
   const [showSpinner, setShowSpinner] = useState(false);
   const [taskvalue, setTaskvalue] = useState("");
-  const [showFullSpinner, setShowFullSpinner] = useState(false);
   const [show, setShow] = useState(false);
 
   //add task value
@@ -35,7 +37,7 @@ const Todos = () => {
   const toggleHandler = (e) => {
     e.preventDefault();
     setShow(!show);
-    setShowEmpty(show);
+    setIsEmpty(show);
   };
   const addhandler = async (e) => {
     if (
@@ -82,11 +84,11 @@ const Todos = () => {
     }
   };
   const moreValue = (e) => {
-    setShowFullSpinner(true);
+    setIsLoading(true);
     setTimeout(() => {
       setTop(top + 12);
 
-      setShowFullSpinner(false);
+      setIsLoading(false);
     }, 300);
   };
   const showless = (e) => {
@@ -97,7 +99,7 @@ const Todos = () => {
       <div className="addTask">
         <h1 className="addTaskH1">Add Tasks</h1>
       </div>
-      <div className={classNames({ blur: showBigSpinner || showFullSpinner })}>
+      <div className={classNames({ blur: isLoading })}>
         <div className="headerClass">
           <Button
             className={classNames("create", { blur: show })}
@@ -110,8 +112,7 @@ const Todos = () => {
           <div className="topButtonAll">
             <Button
               className={classNames("topButton", {
-                blurButton:
-                  (dataCount === 0 || flag === "all") && !showBigSpinner,
+                blurButton: (dataCount === 0 || flag === "all") && !isLoading,
               })}
               disabled={dataCount === 0}
               onClick={(e) => {
@@ -124,7 +125,7 @@ const Todos = () => {
             <Button
               className={classNames("topButton", {
                 blurButton:
-                  (dataCount === 0 || flag === "incomplete") && !showBigSpinner,
+                  (dataCount === 0 || flag === "incomplete") && !isLoading,
               })}
               disabled={dataCount === 0}
               onClick={(e) => {
@@ -137,7 +138,7 @@ const Todos = () => {
             <Button
               className={classNames("topButton", {
                 blurButton:
-                  (dataCount === 0 || flag === "complete") && !showBigSpinner,
+                  (dataCount === 0 || flag === "complete") && !isLoading,
               })}
               disabled={dataCount === 0}
               onClick={(e) => {
@@ -200,7 +201,7 @@ const Todos = () => {
           ))}
         </div>
 
-        {!showFullSpinner && (
+        {!isLoading && (
           <div className="bottomButton">
             {todos.length <= 12 ? null : top <= todos.length ? (
               <div className="loadmoreOver">
@@ -219,7 +220,7 @@ const Todos = () => {
         )}
       </div>
       <div>
-        {showFullSpinner && <Icon className="spinning rotateFull" src="Spin" />}
+        {isLoading && <Icon className="spinning rotateFull" src="Spin" />}
       </div>
     </div>
   );

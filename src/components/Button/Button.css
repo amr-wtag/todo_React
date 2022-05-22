@@ -41,8 +41,8 @@
 
 .searchButton {
   background: none;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
   padding: 0px;
 }
 .blurButton {
@@ -51,28 +51,28 @@
   user-select: none;
 }
 .saveButton {
-  cursor: pointer;
-  min-width: 51px;
-  height: 36px;
-  border-radius: 5px;
   background: #ffffff;
-  cursor: pointer;
   border: 1px solid #dde2ff;
+  border-radius: 5px;
+  cursor: pointer;
+  cursor: pointer;
+  height: 36px;
   margin-right: 15px;
+  min-width: 51px;
 }
 .boxedButtonCompletedOn {
   display: flex;
   flex-wrap: wrap;
-  top: 73%;
-  min-width: 104px;
   justify-content: space-between;
+  min-width: 104px;
+  top: 73%;
 }
 .allBoxedButon {
-  display: flex;
-  min-width: 136px;
-  justify-content: space-between;
   align-items: center;
+  display: flex;
   height: 34px;
+  justify-content: space-between;
+  min-width: 136px;
 }
 .bottomButton {
   padding-bottom: 50px;
@@ -80,14 +80,14 @@
 .loadMoreBtnContainer {
   background: #32394b;
   border: 1px solid #dde2ff;
-
   border-radius: 5px;
-  min-width: 121px;
-  min-height: 36px;
-  font-size: 16px;
-  font-family: "Roboto", sans-serif;
   color: white;
   cursor: pointer;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+
+  min-width: 121px;
+  min-height: 36px;
   margin: 20px 0px;
   padding-right: 6px;
 }

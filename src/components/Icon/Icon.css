@@ -1,27 +1,27 @@
 .logo {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 .splashLogo {
-  display: flex;
   align-items: center;
+  display: flex;
   padding: 0px 7.5% 0px 6.5%;
 }
 .IconLogo {
   padding-right: 6px;
 }
 .splashIconLogo {
-  padding-right: 6px;
-  max-width: 154px;
   height: 154px;
+  max-width: 154px;
+  padding-right: 6px;
 }
 .imgLogo {
   padding-right: 8px;
 }
 .emptyScreen {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: center;
   max-height: 243px;
 }
@@ -41,17 +41,17 @@
 }
 .rotateDiv {
   display: flex;
-  position: absolute;
-  z-index: 9999;
-  width: 50px;
   height: 47.36px;
   left: 40%;
+  position: absolute;
   top: 35%;
   text-align: middle;
+  width: 50px;
+  z-index: 9999;
 }
 .rotateFull {
-  position: fixed;
   left: 47%;
+  position: fixed;
   top: 50%;
   z-index: 9999;
 }

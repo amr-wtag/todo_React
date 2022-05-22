@@ -1,15 +1,16 @@
 /* eslint-disable array-callback-return */
-
-import "./App.css";
+//absolute imports
+import classNames from "classnames";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import React, { useState, useEffect } from "react";
-import Todos from "./components/Todos";
+//relative imports
+import "./App.css";
 import Header from "./components/Header";
 import Icon from "./components/Icon";
 import Tag from "./components/Tag";
 import Toaster from "./components/Toaster";
+import Todos from "./components/Todos";
 import { supabase } from "./config/apiClient";
-import classNames from "classnames";
 
 export const AppContext = React.createContext();
 
@@ -17,20 +18,20 @@ function App() {
   const [todos, setTodos] = useState([]);
 
   const [toasts, setToasts] = useState([]);
-  const [showEmpty, setShowEmpty] = useState(true);
-  const [showBigSpinner, setShowBigSpinner] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchShow, setSearchShow] = useState(false);
   const [flag, setFlag] = useState("all");
   const [search, setSearch] = useState("");
   const [dataCount, setDataCount] = useState(0);
   const [splash, setSplash] = useState(true);
-  const [flagChange, setFlagChange] = useState(false);
+  const [isFlagChange, setIsFlagChange] = useState(false);
   const [prevFlag, setPrevFlag] = useState("all");
   const [progress, setProgress] = useState(true);
   //flag
   const flagHandler = (e) => {
     if (flag !== e) {
-      setFlagChange(true);
+      setIsFlagChange(true);
       setPrevFlag(flag);
       setFlag(e);
     }
@@ -42,19 +43,19 @@ function App() {
   //search value
   const searchvalue = (e) => {
     if (e.length > 2) {
-      setShowBigSpinner(true);
+      setIsLoading(true);
       setSearch(e);
 
-      setShowBigSpinner(false);
+      setIsLoading(false);
     }
   };
 
   //search toggle
   const SearchToggle = () => {
     if (search !== "") {
-      setShowBigSpinner(true);
+      setIsLoading(true);
       setSearch("");
-      setShowBigSpinner(false);
+      setIsLoading(false);
     }
     setSearchShow(!searchShow);
   };
@@ -62,7 +63,7 @@ function App() {
   // useEffect
   useEffect(() => {
     const fetchData = async (e) => {
-      setShowBigSpinner(true);
+      setIsLoading(true);
       let newToast;
       if (flag === "all") {
         const { data, error } = await supabase
@@ -72,7 +73,7 @@ function App() {
           .order("id", { ascending: false });
 
         if (error) {
-          if (flagChange) {
+          if (isFlagChange) {
             setFlag(prevFlag);
           }
           if (splash) {
@@ -109,7 +110,7 @@ function App() {
           setTodos(data);
         } else {
           setFlag(prevFlag);
-          setFlagChange(false);
+          setIsFlagChange(false);
         }
 
         newToast = {
@@ -131,7 +132,7 @@ function App() {
           setTodos(data);
         } else {
           setFlag(prevFlag);
-          setFlagChange(false);
+          setIsFlagChange(false);
         }
 
         newToast = {
@@ -142,7 +143,7 @@ function App() {
         setToasts([...toasts, newToast]);
       }
 
-      setShowBigSpinner(false);
+      setIsLoading(false);
     };
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -216,7 +217,7 @@ function App() {
               searchShow,
               searchvalue,
               dataCount,
-              showBigSpinner,
+              isLoading,
             }}
           >
             <Header />
@@ -246,8 +247,9 @@ function App() {
                 setToasts,
                 dataCount,
                 setDataCount,
-                setShowEmpty,
-                showBigSpinner,
+                setIsEmpty,
+                isLoading,
+                setIsLoading,
                 removeCompleteFromIncomplete,
                 handleRemoveTodo,
               }}
@@ -257,12 +259,10 @@ function App() {
           </div>
 
           <div>
-            {showBigSpinner && (
-              <Icon className="spinning rotateFull" src="Spin" />
-            )}
+            {isLoading && <Icon className="spinning rotateFull" src="Spin" />}
           </div>
 
-          {showEmpty && dataCount === 0 && !showBigSpinner && (
+          {isEmpty && dataCount === 0 && !isLoading && (
             <div className={`emptyScreenOver `}>
               <Icon src="EmptyScreen" className="emptyScreen" />
               <Tag className="tag-pleaseAdd">
@@ -270,7 +270,7 @@ function App() {
               </Tag>
             </div>
           )}
-          {showEmpty && dataCount > 0 && todos.length === 0 && !showBigSpinner && (
+          {isEmpty && dataCount > 0 && todos.length === 0 && !isLoading && (
             <div className={`emptyScreenOver `}>
               <Icon src="EmptyScreen" className="emptyScreen" />
               <Tag className="tag-pleaseAdd"> There is no data for {flag}</Tag>

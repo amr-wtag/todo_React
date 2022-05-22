@@ -1,13 +1,15 @@
-import { useState, useContext } from "react";
+//absolute imports
+import classNames from "classnames";
+import { format, formatDistance } from "date-fns";
+import { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import TextArea from "../TextArea";
+//relative imports
+import { AppContext } from "../../App";
+import { supabase } from "../../config/apiClient";
+import Button from "../Button";
 import Icon from "../Icon";
 import Tag from "../Tag";
-import Button from "../Button";
-import { format } from "date-fns";
-import { supabase } from "../../config/apiClient";
-import { AppContext } from "../../App";
-import classNames from "classnames";
+import TextArea from "../TextArea";
 const Todo = ({ todo }) => {
   const {
     handleRemoveTodo,
@@ -18,28 +20,30 @@ const Todo = ({ todo }) => {
     search,
   } = useContext(AppContext);
   const [newName, setNewName] = useState(todo.name);
-  const [showEdit, setShowEdit] = useState(false);
-  const [showLoading, setShowLoading] = useState(false);
-  let completedDays = Math.ceil(
-    Math.abs(Date.parse(todo.completed_on) - Date.parse(todo.created_at)) /
-      (1000 * 60 * 60 * 24),
-  );
+  const [isEdit, setIsEdit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const completedDays =
+    todo.completed_on &&
+    formatDistance(Date.parse(todo.completed_on), Date.parse(todo.created_at), {
+      addSuffix: true,
+    });
+
   const editToggle = (e) => {
-    setShowEdit((prev) => !prev);
+    setIsEdit((prev) => !prev);
   };
   const edit = (e) => {
     setNewName(e.target.value);
   };
   // Delete task
   const deletetodo = (id) => {
-    setShowLoading(true);
+    setIsLoading(true);
 
     handleRemoveTodo(id);
   };
   // on Complete
 
   const completeHandler = async (e) => {
-    setShowLoading(true);
+    setIsLoading(true);
     const dateValue = new Date(Date.now());
 
     const { data, error } = await supabase
@@ -50,7 +54,7 @@ const Todo = ({ todo }) => {
     if (error === null) {
       todo.completed_on = data[0]["completed_on"];
       if (flag === "incomplete") removeCompleteFromIncomplete(todo.id);
-      if (showEdit) editToggle();
+      if (isEdit) editToggle();
     }
     let newToast = {
       id: uuidv4(),
@@ -60,7 +64,7 @@ const Todo = ({ todo }) => {
 
     setToasts([...toasts, newToast]);
 
-    if (flag !== "incomplete") setShowLoading(false);
+    if (flag !== "incomplete") setIsLoading(false);
   };
 
   const editValue = async (e) => {
@@ -75,7 +79,7 @@ const Todo = ({ todo }) => {
           .replace(/\s+/g, " ")
           .replace(/(<([^>]+)>)/gi, "")
     ) {
-      setShowLoading(true);
+      setIsLoading(true);
       // eslint-disable-next-line
       const { data, error } = await supabase
         .from("ReactTodo")
@@ -103,7 +107,7 @@ const Todo = ({ todo }) => {
         }
         editToggle();
       }
-      setShowLoading(false);
+      setIsLoading(false);
       let newToast = {
         id: uuidv4(),
         type: error ? "error" : "success",
@@ -119,13 +123,13 @@ const Todo = ({ todo }) => {
   return (
     <div id="todo" className="todo">
       <div>
-        {showEdit ? (
+        {isEdit ? (
           <TextArea
             id="editName"
-            className={classNames("textarea-editName", { blur: showLoading })}
+            className={classNames("textarea-editName", { blur: isLoading })}
             value={newName}
             onChange={edit}
-            readOnly={showLoading}
+            readOnly={isLoading}
             autoFocus
             onFocus={(e) => {
               var val = e.target.value;
@@ -145,24 +149,24 @@ const Todo = ({ todo }) => {
               id="showName"
               className={classNames({
                 "tag-completed": todo.completed_on,
-                blur: showLoading,
+                blur: isLoading,
               })}
             >
               {todo.name}
             </Tag>
           </div>
         )}
-        {!showEdit && (
-          <Tag className={classNames("todo-createdAt", { blur: showLoading })}>
+        {!isEdit && (
+          <Tag className={classNames("todo-createdAt", { blur: isLoading })}>
             Created At: {format(new Date(todo.created_at), "dd.MM.yy")}
           </Tag>
         )}
       </div>
       <div
-        className={classNames("boxedButtonCompletedOn", { blur: showLoading })}
+        className={classNames("boxedButtonCompletedOn", { blur: isLoading })}
       >
         <div className="allBoxedButon">
-          {showEdit && (
+          {isEdit && (
             <Button className="saveButton" onClick={() => editValue(todo.id)}>
               Save
             </Button>
@@ -178,7 +182,7 @@ const Todo = ({ todo }) => {
               <Icon src="Tick" />
             </Button>
           )}
-          {!todo.completed_on && !showEdit && (
+          {!todo.completed_on && !isEdit && (
             <Button id="edit" onClick={editToggle} className="boxedButton">
               <Icon src="Edit" />
             </Button>
@@ -191,17 +195,15 @@ const Todo = ({ todo }) => {
             <Icon src="Delete" />
           </Button>
         </div>
-        {todo.completed_on &&
-          (completedDays > 1 ? (
-            <Tag className="tag-completedOn">
-              Completed in {completedDays} days
-            </Tag>
-          ) : (
+        {completedDays &&
+          (completedDays.includes("minute") ? (
             <Tag className="tag-completedOn">Completed in a day</Tag>
+          ) : (
+            <Tag className="tag-completedOn">Completed {completedDays}</Tag>
           ))}
       </div>
 
-      {showLoading && <Icon className="spinning rotateDiv" src="Spin" />}
+      {isLoading && <Icon className="spinning rotateDiv" src="Spin" />}
     </div>
   );
 };

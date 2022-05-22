@@ -1,11 +1,11 @@
 .input-search {
-  margin-right: 4px;
-  width: 518px;
-  height: 36px;
   background: #ffffff;
   border: 3px solid #d1d8ff;
-  box-sizing: border-box;
   border-radius: 5px;
+  box-sizing: border-box;
+  height: 36px;
+  margin-right: 4px;
+  width: 518px;
 }
 @media screen and (max-width: 854px) {
   .input-search {
