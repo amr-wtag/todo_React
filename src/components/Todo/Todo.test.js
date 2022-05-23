@@ -33,21 +33,21 @@ describe("checking todo component", () => {
     expect(output.find(".todo").props().id).toBe("todo");
   });
   test("check created at", () => {
-    expect(output.find(".todo-createdAt").hostNodes().text()).toBe(
+    expect(output.find(".todo__created-at").hostNodes().text()).toBe(
       "Created At: 18.05.22",
     );
   });
   test("checking showEdit state changing", () => {
-    output.find("Button .boxedButton").children().at(1).simulate("click");
-    expect(output.find(".textarea-editName").hostNodes().length).toBe(1);
+    output.find("Button .btn__boxed-button").children().at(1).simulate("click");
+    expect(output.find(".textarea__edit-name").hostNodes().length).toBe(1);
   });
   test("after save button clicked textarea will not show", () => {
-    output.find("Button .boxedButton").children().at(1).simulate("click");
-    output.find(".saveButton").hostNodes().simulate("click");
-    expect(output.find(".textarea-editName").hostNodes().length).toBe(0);
+    output.find("Button .btn__boxed-button").children().at(1).simulate("click");
+    output.find(".btn__save-button").hostNodes().simulate("click");
+    expect(output.find(".textarea__edit-name").hostNodes().length).toBe(0);
   });
   test("if showEdit is true created at will not be available", () => {
-    output.find("Button .boxedButton").children().at(1).simulate("click");
-    expect(output.find(".todo-createdAt").hostNodes().length).toBe(0);
+    output.find("Button .btn__boxed-button").children().at(1).simulate("click");
+    expect(output.find(".todo__created-at").hostNodes().length).toBe(0);
   });
 });

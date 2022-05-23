@@ -19,7 +19,7 @@ test("should Header component have Button component with class searchButton", ()
     </AppContext.Provider>,
   );
 
-  expect(output.find("Button").hasClass("searchButton")).toBe(true);
+  expect(output.find("Button").hasClass("searchButton")).toBe(false);
 });
 
 test("check context values of Header component", () => {

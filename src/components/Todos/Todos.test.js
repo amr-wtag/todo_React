@@ -97,10 +97,11 @@ describe("checking todos component", () => {
           setToasts: mockFn,
           dataCount: 13,
           setDataCount: mockFn,
-          setShowEmpty: mockFn,
-          showBigSpinner: false,
+          setIsEmpty: mockFn,
           removeCompleteFromIncomplete: mockFn,
+          setIsLoading: mockFn,
           handleRemoveTodo: mockFn,
+          isLoading: false,
         }}
       >
         <Todos />
@@ -109,15 +110,11 @@ describe("checking todos component", () => {
   });
 
   test("function are called after click", () => {
-    expect(output.find("loadmoreOver").length).toBe(0);
+    expect(output.find(".btn__load-more--over").length).toBe(1);
   });
   test("check button have been clicked", () => {
-    output.find(".topButton").hostNodes().at(0).simulate("click");
+    output.find(".btn__top-button").hostNodes().at(0).simulate("click");
 
     expect(mockFn).toHaveBeenCalled();
-  });
-  test("loadmore button hides and show less appear after all value shown", () => {
-    output.find(".loadMoreBtnContainer").hostNodes().simulate("click");
-    expect(output.find(".loadMoreBtnContainer").children()).toBe("Show Less");
   });
 });
