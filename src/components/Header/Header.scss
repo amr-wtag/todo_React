@@ -1,7 +1,8 @@
+@import "../../variable.scss";
 .head {
   &__overHead {
-    border: 1px solid #dde2ff;
-    background-color: white;
+    border: 1px solid $--border;
+    background-color: $--bg--alternative--font;
     position: fixed;
     top: 0px;
     width: 100%;

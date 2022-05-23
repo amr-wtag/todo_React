@@ -1,7 +1,8 @@
+@import "../../variable.scss";
 .toast {
-  border: 1px solid;
+  border: 1px solid $--border;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px $--box-shadow;
   left: 0;
   margin: auto;
   margin-top: 10px;
@@ -42,14 +43,14 @@
     animation: fadeout 3s infinite alternate;
   }
   &--error {
-    background: #e85f5f;
+    background: $error;
     border-radius: 5px;
-    color: #ffffff;
+    color: $--bg--alternative--font;
   }
   &--success {
-    background: #0bc475;
+    background: $success;
     border-radius: 5px;
-    color: #ffffff;
+    color: $--bg--alternative--font;
   }
 
   @media screen and (max-width: 725px) {

@@ -270,17 +270,20 @@ function App() {
           </div>
 
           {isEmpty && dataCount === 0 && !isLoading && (
-            <div className={`empty-screen-over `}>
-              <Icon src="empty-screen" className="empty-screen" />
-              <Tag className="tag-pleaseAdd">
+            <div className="logo__empty-screen-over">
+              <Icon src="empty-screen" className="logo__empty-screen" />
+              <Tag className="tag__empty-screen">
                 You didn't add any task. Please, add one.
               </Tag>
             </div>
           )}
           {isEmpty && dataCount > 0 && todos.length === 0 && !isLoading && (
-            <div className={`empty-screen-over `}>
-              <Icon src="empty-screen" className="empty-screen" />
-              <Tag className="tag-pleaseAdd"> There is no data for {flag}</Tag>
+            <div className="logo__empty-screen-over">
+              <Icon src="empty-screen" className="logo__empty-screen" />
+              <Tag className="tag__empty-screen">
+                {" "}
+                There is no data for {flag}
+              </Tag>
             </div>
           )}
         </div>

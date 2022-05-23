@@ -1,20 +1,22 @@
+@import "../../variable.scss";
+
 .tag {
-  &__completed {
-    color: #0bc375;
+  &--completed {
+    color: $success;
     text-decoration: line-through;
   }
 
-  &__pleaseAdd {
+  &__empty-screen {
     display: flex;
     font-size: 20px;
     justify-content: center;
     outline: none;
   }
-  &__completedOn {
+  &__completed-on {
     align-items: center;
-    background: #7a8dfd;
+    background: $--bg--alternative;
     border-radius: 5px;
-    color: #ffffff;
+    color: $--bg--alternative--font;
     display: inline-flex;
     font-weight: 500;
     font-size: 15px;

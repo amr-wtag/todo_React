@@ -1,7 +1,8 @@
+@import "../../variable.scss";
 .input {
   &__search {
-    background: #ffffff;
-    border: 3px solid #d1d8ff;
+    background: $--bg;
+    border: 3px solid $--border;
     border-radius: 5px;
     box-sizing: border-box;
     height: 36px;

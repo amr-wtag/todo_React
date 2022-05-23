@@ -128,7 +128,7 @@ const Todo = ({ todo }) => {
           <div>
             <Tag
               className={classNames("tag__name", {
-                tag__completed: todo.completed_on,
+                "tag--completed": todo.completed_on,
                 blur: isLoading,
               })}
             >
@@ -186,9 +186,11 @@ const Todo = ({ todo }) => {
         </div>
         {completedDays &&
           (completedDays.includes("minute") ? (
-            <Tag className="tag__completedOn">Completed in a day</Tag>
+            <Tag className="tag__completed-on">Completed in a day</Tag>
           ) : (
-            <Tag className="tag__completedOn">Completed in {completedDays}</Tag>
+            <Tag className="tag__completed-on">
+              Completed in {completedDays}
+            </Tag>
           ))}
       </div>
 

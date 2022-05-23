@@ -1,23 +1,23 @@
-.tag__completed {
+.tag--completed {
   color: #0bc375;
   text-decoration: line-through;
 }
 
-.tag__pleaseAdd {
+.tag__empty-screen {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   font-size: 20px;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   outline: none;
 }
 
-.tag__completedOn {
+.tag__completed-on {
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   background: #7a8dfd;
   border-radius: 5px;
   color: #ffffff;
@@ -28,7 +28,7 @@
   font-size: 15px;
   height: 24px;
   -ms-flex-pack: distribute;
-  justify-content: space-around;
+      justify-content: space-around;
   min-width: 147px;
   padding: 3px 6px;
   text-align: center;

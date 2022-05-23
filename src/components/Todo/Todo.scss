@@ -1,6 +1,7 @@
+@import "../../variable.scss";
 .todo {
-  background: #ffffff;
-  border: 1px solid #dde2ff;
+  background: $--bg;
+  border: 1px solid $--border;
   box-sizing: border-box;
   border-radius: 5px;
   display: flex;
@@ -23,7 +24,7 @@
   }
 
   &__created-at {
-    color: #bbbdd0;
+    color: $--created--font;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-style: normal;
