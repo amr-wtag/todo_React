@@ -1,10 +1,9 @@
-$initial-background: $--bg;
-$font-color: $font;
-$progress-bar-color: $--bg-alternative;
+@import "../../variable.scss";
+
 body {
   margin: 0;
 
-  background-color: $initial-background;
+  background-color: $--bg;
 }
 ::-webkit-scrollbar {
   width: 0px;
@@ -24,7 +23,7 @@ body {
   outline: none;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
-  color: $font-color;
+  color: $font;
 }
 
 @keyframes fadeout {
@@ -48,7 +47,7 @@ body {
   position: fixed;
   height: 15px;
   width: 100%;
-  background-color: $progress-bar-color;
+  background-color: $--bg-alternative;
   animation: progress-animation 2s forwards;
 }
 @keyframes progress-animation {
@@ -63,6 +62,6 @@ body {
   position: fixed;
   height: 15px;
   width: 100%;
-  background-color: $progress-bar-color;
+  background-color: $--bg-alternative;
   animation: fullprogress-animation 2s forwards;
 }

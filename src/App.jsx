@@ -1,9 +1,8 @@
 /* eslint-disable array-callback-return */
-//absolute imports
+
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-//relative imports
 import "./App.css";
 import Header from "./components/Header";
 import Icon from "./components/Icon";

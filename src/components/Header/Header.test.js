@@ -1,7 +1,7 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
-import Header from "../index";
-import { AppContext } from "../../../App";
+import Header from "./index";
+import { AppContext } from "../../App";
 test("should Header component have Button component with class searchButton", () => {
   const mockFn = jest.fn();
 
@@ -17,14 +17,9 @@ test("should Header component have Button component with class searchButton", ()
     >
       <Header />
     </AppContext.Provider>,
-    // <Button onClick={mockFn} />,
   );
-  // console.log();
 
   expect(output.find("Button").hasClass("searchButton")).toBe(true);
-  // eslint-disable-next-line testing-library/no-debugging-utils
-  // console.log(output.find("IconLogo"));
-  // expect(output.find("Input").id).toBe("search");
 });
 
 test("check context values of Header component", () => {
@@ -43,7 +38,5 @@ test("check context values of Header component", () => {
       <Header />
     </AppContext.Provider>,
   );
-  // console.log(output.debug());
-  // console.log(output.find(".searchInputButton"));
   expect(output.find("Input").props().readOnly).toBeFalsy();
 });

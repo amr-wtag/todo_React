@@ -1,15 +1,14 @@
-//absolute imports
 import classNames from "classnames";
 import { format, formatDistance } from "date-fns";
 import { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-//relative imports
 import { AppContext } from "../../App";
 import { supabase } from "../../config/apiClient";
 import Button from "../Button";
 import Icon from "../Icon";
 import Tag from "../Tag";
 import TextArea from "../TextArea";
+
 const Todo = ({ todo }) => {
   const {
     handleRemoveTodo,

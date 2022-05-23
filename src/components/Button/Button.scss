@@ -12,8 +12,8 @@
 
   &__top-button {
     height: 36px;
-    background: $--bg;
-    border: 1px solid $--border;
+    background: $bg;
+    border: 1px solid $border;
     border-radius: 5px;
     font-weight: 700;
 
@@ -23,10 +23,10 @@
   }
   &__create {
     display: flex;
-    background: $--bg--alternative;
+    background: $bg-alternative;
     width: 104px;
     height: 36px;
-    color: $--bg--alternative--font;
+    color: $bg-alternative-font;
     border-radius: 5px;
     font-size: 15px;
     border: 0px;
@@ -53,8 +53,8 @@
     user-select: none;
   }
   &__save-button {
-    background: $--bg;
-    border: 1px solid $--border;
+    background: $bg;
+    border: 1px solid $border;
     border-radius: 5px;
 
     height: 36px;
@@ -79,10 +79,10 @@
     padding-bottom: 50px;
   }
   &__load-more--btn-container {
-    background: $--bg-load-more;
-    border: 1px solid $--border;
+    background: $bg-load-more;
+    border: 1px solid $border;
     border-radius: 5px;
-    color: $--bg--alternative--font;
+    color: $bg-alternative-font;
 
     font-size: 16px;
     font-family: "Roboto", sans-serif;

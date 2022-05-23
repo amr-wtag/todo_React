@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-//absolute imports
+
 import classNames from "classnames";
 import React, { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-//relative imports
 import { AppContext } from "../../App";
 import { supabase } from "../../config/apiClient";
 import Button from "../Button";

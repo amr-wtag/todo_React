@@ -1,11 +1,10 @@
-//absolute imports
 import classNames from "classnames";
 import React, { useContext } from "react";
-//relative imports
 import { AppContext } from "../../App";
 import Button from "../Button";
 import Icon from "../Icon";
 import Input from "../Input";
+
 const Header = () => {
   const { SearchToggle, searchShow, searchvalue, dataCount, isLoading } =
     useContext(AppContext);

@@ -1,11 +1,10 @@
 import React from "react";
 import { /* mount, */ shallow } from "enzyme";
 
-import TextArea from "../index";
+import TextArea from "./index";
 describe("checking textarea componenet", () => {
   test("textarea should render", () => {
     const output = shallow(<TextArea className={"abcd"} />);
-    console.log(output.find("textarea").props());
     expect(output.find("textarea").props().className).toBe("abcd");
   });
   test("check TextArea component onchange event", () => {

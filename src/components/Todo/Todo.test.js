@@ -1,7 +1,7 @@
 /* eslint-disable testing-library/no-debugging-utils */
-import { mount, shallow } from "enzyme";
-import Todo from "../index";
-import { AppContext } from "../../../App";
+import { mount } from "enzyme";
+import { AppContext } from "../../App";
+import Todo from "./index";
 
 describe("checking todo component", () => {
   let output;
@@ -38,14 +38,12 @@ describe("checking todo component", () => {
     );
   });
   test("checking showEdit state changing", () => {
-    console.log(output.find("Button .boxedButton").children().at(1).debug());
     output.find("Button .boxedButton").children().at(1).simulate("click");
     expect(output.find(".textarea-editName").hostNodes().length).toBe(1);
   });
   test("after save button clicked textarea will not show", () => {
     output.find("Button .boxedButton").children().at(1).simulate("click");
     output.find(".saveButton").hostNodes().simulate("click");
-    console.log(output.find(".textarea-editName").debug());
     expect(output.find(".textarea-editName").hostNodes().length).toBe(0);
   });
   test("if showEdit is true created at will not be available", () => {

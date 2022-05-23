@@ -1,8 +1,8 @@
 @import "../../variable.scss";
 .toast {
-  border: 1px solid $--border;
+  border: 1px solid $border;
   border-radius: 5px;
-  box-shadow: 0 0 10px $--box-shadow;
+  box-shadow: 0 0 10px $box-shadow;
   left: 0;
   margin: auto;
   margin-top: 10px;
@@ -45,12 +45,12 @@
   &--error {
     background: $error;
     border-radius: 5px;
-    color: $--bg--alternative--font;
+    color: $bg-alternative-font;
   }
   &--success {
     background: $success;
     border-radius: 5px;
-    color: $--bg--alternative--font;
+    color: $bg-alternative-font;
   }
 
   @media screen and (max-width: 725px) {
