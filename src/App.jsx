@@ -190,7 +190,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="app">
       {splash && (
         <div>
           <div className="container">
@@ -198,13 +198,13 @@ function App() {
             <div
               className={classNames({
                 "progress-bar": progress,
-                "fullprogress-bar": !progress,
+                "full-progress-bar": !progress,
               })}
             ></div>
           </div>
-          <div className="splash faddingOut  ">
-            <div className="splashLogo">
-              <div className="splashIconLogo">
+          <div className="app__splash fadding-out">
+            <div className="logo logo__splash-logo ">
+              <div className="logo logo__splash__icon-logo">
                 <Icon src="SplashLeaf" />
               </div>
               <div>
@@ -227,13 +227,13 @@ function App() {
           >
             <Header />
           </AppContext.Provider>
-          <div className="overToaster">
-            <div className="toaster">
+          <div className="toast__over-toaster">
+            <div className="toast__toaster">
               {toasts.length > 0 &&
                 toasts.map((toast) => (
                   <Toaster
                     key={toast.id}
-                    className={`faddingtoastOut toast toast--visible toast--${toast.type}`}
+                    className={`toast__fadding-toast-out toast toast--visible toast--${toast.type}`}
                   >
                     {toast.type === "success" && <Icon src="Check" />}{" "}
                     {toast.message}
@@ -241,7 +241,7 @@ function App() {
                 ))}
             </div>
           </div>
-          <div className="bodyClass">
+          <div className="app__body-class">
             <AppContext.Provider
               value={{
                 todos,
@@ -264,20 +264,22 @@ function App() {
           </div>
 
           <div>
-            {isLoading && <Icon className="spinning rotateFull" src="Spin" />}
+            {isLoading && (
+              <Icon className="logo__spinning logo__rotate-full" src="Spin" />
+            )}
           </div>
 
           {isEmpty && dataCount === 0 && !isLoading && (
-            <div className={`emptyScreenOver `}>
-              <Icon src="EmptyScreen" className="emptyScreen" />
+            <div className={`empty-screen-over `}>
+              <Icon src="empty-screen" className="empty-screen" />
               <Tag className="tag-pleaseAdd">
                 You didn't add any task. Please, add one.
               </Tag>
             </div>
           )}
           {isEmpty && dataCount > 0 && todos.length === 0 && !isLoading && (
-            <div className={`emptyScreenOver `}>
-              <Icon src="EmptyScreen" className="emptyScreen" />
+            <div className={`empty-screen-over `}>
+              <Icon src="empty-screen" className="empty-screen" />
               <Tag className="tag-pleaseAdd"> There is no data for {flag}</Tag>
             </div>
           )}

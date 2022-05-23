@@ -1,30 +1,35 @@
-.input-search {
+.input__search {
   background: #ffffff;
   border: 3px solid #d1d8ff;
   border-radius: 5px;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   height: 36px;
   margin-right: 4px;
   width: 518px;
 }
+
 @media screen and (max-width: 854px) {
-  .input-search {
+  .input__search {
     width: 390px;
   }
 }
+
 @media screen and (max-width: 725px) {
-  .input-search {
+  .input__search {
     width: 300px;
   }
 }
 
 @media screen and (max-width: 556px) {
-  .input-search {
+  .input__search {
     width: 180px;
   }
 }
+
 @media screen and (max-width: 411px) {
-  .input-search {
+  .input__search {
     width: 73px;
   }
 }
+/*# sourceMappingURL=Input.css.map */

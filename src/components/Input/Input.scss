@@ -1,0 +1,32 @@
+.input {
+  &__search {
+    background: #ffffff;
+    border: 3px solid #d1d8ff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 36px;
+    margin-right: 4px;
+    width: 518px;
+  }
+  @media screen and (max-width: 854px) {
+    &__search {
+      width: 390px;
+    }
+  }
+  @media screen and (max-width: 725px) {
+    &__search {
+      width: 300px;
+    }
+  }
+
+  @media screen and (max-width: 556px) {
+    &__search {
+      width: 180px;
+    }
+  }
+  @media screen and (max-width: 411px) {
+    &__search {
+      width: 73px;
+    }
+  }
+}

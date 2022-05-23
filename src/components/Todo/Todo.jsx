@@ -107,7 +107,7 @@ const Todo = ({ todo }) => {
         {isEdit ? (
           <TextArea
             id="editName"
-            className={classNames("textarea-editName", { blur: isLoading })}
+            className={classNames("textarea__edit-name", { blur: isLoading })}
             value={newName}
             onChange={edit}
             readOnly={isLoading}
@@ -127,9 +127,8 @@ const Todo = ({ todo }) => {
         ) : (
           <div>
             <Tag
-              id="showName"
-              className={classNames({
-                "tag-completed": todo.completed_on,
+              className={classNames("tag__name", {
+                tag__completed: todo.completed_on,
                 blur: isLoading,
               })}
             >
@@ -138,24 +137,29 @@ const Todo = ({ todo }) => {
           </div>
         )}
         {!isEdit && (
-          <Tag className={classNames("todo-createdAt", { blur: isLoading })}>
+          <Tag className={classNames("todo__created-at", { blur: isLoading })}>
             Created At: {format(new Date(todo.created_at), "dd.MM.yy")}
           </Tag>
         )}
       </div>
       <div
-        className={classNames("boxedButtonCompletedOn", { blur: isLoading })}
+        className={classNames("btn btn__boxed-button__completed-on", {
+          blur: isLoading,
+        })}
       >
-        <div className="allBoxedButon">
+        <div className="btn btn__all__boxed-button">
           {isEdit && (
-            <Button className="saveButton" onClick={() => editValue(todo.id)}>
+            <Button
+              className="btn btn__save-button"
+              onClick={() => editValue(todo.id)}
+            >
               Save
             </Button>
           )}
           {!todo.completed_on && (
             <Button
               id="complete"
-              className="boxedButton"
+              className="btn btn__boxed-button"
               onClick={() => {
                 completeHandler(todo.id);
               }}
@@ -164,13 +168,17 @@ const Todo = ({ todo }) => {
             </Button>
           )}
           {!todo.completed_on && !isEdit && (
-            <Button id="edit" onClick={editToggle} className="boxedButton">
+            <Button
+              id="edit"
+              onClick={editToggle}
+              className="btn btn__boxed-button"
+            >
               <Icon src="Edit" />
             </Button>
           )}
           <Button
             id="delete"
-            className="boxedButton"
+            className="btn btn__boxed-button"
             onClick={() => deletetodo(todo.id)}
           >
             <Icon src="Delete" />
@@ -178,13 +186,15 @@ const Todo = ({ todo }) => {
         </div>
         {completedDays &&
           (completedDays.includes("minute") ? (
-            <Tag className="tag-completedOn">Completed in a day</Tag>
+            <Tag className="tag__completedOn">Completed in a day</Tag>
           ) : (
-            <Tag className="tag-completedOn">Completed in {completedDays}</Tag>
+            <Tag className="tag__completedOn">Completed in {completedDays}</Tag>
           ))}
       </div>
 
-      {isLoading && <Icon className="spinning rotateDiv" src="Spin" />}
+      {isLoading && (
+        <Icon className="logo__spinning logo__rotate-div" src="Spin" />
+      )}
     </div>
   );
 };

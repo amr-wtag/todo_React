@@ -1,5 +1,5 @@
 // Button Component
-export const Button = ({ children, onClick, className, disabled }) => {
+export const Button = ({ onClick, children, className, disabled }) => {
   return (
     <div>
       <button onClick={onClick} className={className} disabled={disabled}>

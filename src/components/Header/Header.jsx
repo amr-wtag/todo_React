@@ -25,29 +25,29 @@ const Header = () => {
   };
   // const optimizedVersion = debounce(searchHandler, 500);
   return (
-    <div className={"overHead "}>
-      <div className="Header">
+    <div className={"head__overHead"}>
+      <div className="head__Header">
         <div className="logo">
-          <div className="IconLogo">
+          <div className="logo logo__icon-logo">
             <Icon src="Leaf" />
           </div>
           <div>
             <Icon src="Title" />
           </div>
         </div>
-        <div className="searchInputButton">
+        <div className="head__searchInputButton">
           {searchShow && (
             <Input
               id="search"
               autoFocus
-              className="input-search"
+              className="input__search"
               readOnly={isLoading}
               onKeyUp={debounce(searchHandler, 500)}
             />
           )}
           <Button
-            className={classNames("searchButton", {
-              blurButton: dataCount === 0,
+            className={classNames("btn btn__search-button", {
+              "btn btn__blur-button": dataCount === 0,
             })}
             onClick={SearchToggle}
           >

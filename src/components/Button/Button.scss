@@ -1,0 +1,118 @@
+.btn {
+  cursor: pointer;
+
+  &__boxed-button {
+    background: none;
+
+    border: none;
+    padding: 0px;
+    padding-right: 20px;
+  }
+
+  &__top-button {
+    height: 36px;
+    color: #32394b;
+    background: #ffffff;
+    border: 1px solid #dde2ff;
+    border-radius: 5px;
+    font-weight: 700;
+
+    padding: 10px;
+    font-size: 14px;
+    font-family: Roboto, sans-serif;
+  }
+  &__create {
+    display: flex;
+    background: #7a8dfd;
+    width: 104px;
+    height: 36px;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    border: 0px;
+    justify-content: space-evenly;
+
+    align-items: center;
+  }
+
+  &__top-button--all {
+    width: 232px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__search-button {
+    background: none;
+    border: none;
+
+    padding: 0px;
+  }
+  &__blur-button {
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
+  }
+  &__save-button {
+    background: #ffffff;
+    border: 1px solid #dde2ff;
+    border-radius: 5px;
+
+    height: 36px;
+    margin-right: 15px;
+    min-width: 51px;
+  }
+  &__boxed-button__completed-on {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    min-width: 104px;
+    top: 73%;
+  }
+  &__all__boxed-button {
+    align-items: center;
+    display: flex;
+    height: 34px;
+    justify-content: space-between;
+    min-width: 136px;
+  }
+  &__bottom-button {
+    padding-bottom: 50px;
+  }
+  &__load-more--btn-container {
+    background: #32394b;
+    border: 1px solid #dde2ff;
+    border-radius: 5px;
+    color: white;
+
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+
+    min-width: 121px;
+    min-height: 36px;
+    margin: 20px 0px;
+    padding-right: 6px;
+  }
+
+  &__load-more--over {
+    display: flex;
+    justify-content: center;
+  }
+  @media screen and (max-width: 854px) {
+    &__all__boxed-button {
+      min-width: 33px;
+    }
+  }
+  @media screen and (max-width: 725px) {
+    &__create {
+      width: 95px;
+    }
+    &__top-button {
+      height: 36px;
+    }
+  }
+  @media screen and (max-width: 391px) {
+    &__create {
+      margin: 0px 10px 11px 0px;
+    }
+  }
+}

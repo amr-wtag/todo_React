@@ -96,19 +96,20 @@ const Todos = () => {
         <h1 className="addTaskH1">Add Tasks</h1>
       </div>
       <div className={classNames({ blur: isLoading })}>
-        <div className="headerClass">
+        <div className="head__headerClass">
           <Button
-            className={classNames("create", { blur: show })}
+            className={classNames("btn btn__create", { blur: show })}
             onClick={toggleHandler}
             disabled={show}
           >
             <Icon src="Plus" />
             Create
           </Button>
-          <div className="topButtonAll">
+          <div className="btn btn__top-button--all">
             <Button
-              className={classNames("topButton", {
-                blurButton: (dataCount === 0 || flag === "all") && !isLoading,
+              className={classNames("btn btn__top-button", {
+                "btn btn__blur-button":
+                  (dataCount === 0 || flag === "all") && !isLoading,
               })}
               disabled={dataCount === 0}
               onClick={() => {
@@ -119,8 +120,8 @@ const Todos = () => {
               All
             </Button>
             <Button
-              className={classNames("topButton", {
-                blurButton:
+              className={classNames("btn btn__top-button", {
+                "btn btn__blur-button":
                   (dataCount === 0 || flag === "incomplete") && !isLoading,
               })}
               disabled={dataCount === 0}
@@ -132,8 +133,8 @@ const Todos = () => {
               Incomplete
             </Button>
             <Button
-              className={classNames("topButton", {
-                blurButton:
+              className={classNames("btn btn__top-button", {
+                "btn btn__blur-button":
                   (dataCount === 0 || flag === "complete") && !isLoading,
               })}
               disabled={dataCount === 0}
@@ -151,7 +152,7 @@ const Todos = () => {
             <div id="todo" className="todo">
               <div>
                 <TextArea
-                  className={classNames("textarea-editName", {
+                  className={classNames("textarea__edit-name", {
                     blur: showSpinner,
                   })}
                   placeholder="Add new task"
@@ -173,21 +174,29 @@ const Todos = () => {
                   }}
                 />
               </div>
-              <div className="todo-addDel">
+              <div className="todo__add-del">
                 <Button
-                  className={classNames("saveButton", { blur: showSpinner })}
+                  className={classNames("btn btn__save-button", {
+                    blur: showSpinner,
+                  })}
                   onClick={addhandler}
                 >
                   Add Task
                 </Button>
-                <Button className="boxedButton" onClick={toggleHandler}>
+                <Button
+                  className="btn btn__boxed-button"
+                  onClick={toggleHandler}
+                >
                   <Icon src="Delete" />
                 </Button>
               </div>
 
               {showSpinner && (
                 <div>
-                  <Icon className="spinning rotateDiv" src="Spin" />
+                  <Icon
+                    className="logo__spinning logo__rotate-div"
+                    src="Spin"
+                  />
                 </div>
               )}
             </div>
@@ -198,16 +207,22 @@ const Todos = () => {
         </div>
 
         {!isLoading && (
-          <div className="bottomButton">
+          <div className="bottom-button">
             {todos.length <= 12 ? null : top <= todos.length ? (
-              <div className="loadmoreOver">
-                <Button className="loadMoreBtnContainer" onClick={moreValue}>
+              <div className="btn btn__load-more--over">
+                <Button
+                  className="btn btn__load-more--btn-container"
+                  onClick={moreValue}
+                >
                   Load More
                 </Button>
               </div>
             ) : (
-              <div className="loadmoreOver">
-                <Button className="loadMoreBtnContainer" onClick={showless}>
+              <div className="btn btn__load-more--over">
+                <Button
+                  className="btn btn__load-more--btn-container"
+                  onClick={showless}
+                >
                   Show Less
                 </Button>
               </div>
@@ -216,7 +231,9 @@ const Todos = () => {
         )}
       </div>
       <div>
-        {isLoading && <Icon className="spinning rotateFull" src="Spin" />}
+        {isLoading && (
+          <Icon className="logo__spinning logo__rotate-full" src="Spin" />
+        )}
       </div>
     </div>
   );

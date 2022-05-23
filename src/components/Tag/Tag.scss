@@ -1,0 +1,30 @@
+.tag {
+  &__completed {
+    color: #0bc375;
+    text-decoration: line-through;
+  }
+
+  &__pleaseAdd {
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+    outline: none;
+  }
+  &__completedOn {
+    align-items: center;
+    background: #7a8dfd;
+    border-radius: 5px;
+    color: #ffffff;
+    display: inline-flex;
+    font-weight: 500;
+    font-size: 15px;
+    height: 24px;
+    justify-content: space-around;
+    min-width: 147px;
+    padding: 3px 6px;
+    text-align: center;
+  }
+  &__name {
+    font-size: 24px;
+  }
+}

@@ -1,10 +1,4 @@
 // Tag
-export const Tag = ({ children, id, className }) => {
-  return (
-    <div>
-      <label id={id} className={className}>
-        {children}
-      </label>
-    </div>
-  );
+export const Tag = ({ children, className }) => {
+  return <span className={className}>{children}</span>;
 };
