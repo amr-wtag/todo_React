@@ -1,7 +1,7 @@
-import React from "react";
 import { /* mount, */ shallow } from "enzyme";
-
+import React from "react";
 import TextArea from "./index";
+
 describe("checking textarea componenet", () => {
   test("textarea should render", () => {
     const output = shallow(<TextArea className={"abcd"} />);

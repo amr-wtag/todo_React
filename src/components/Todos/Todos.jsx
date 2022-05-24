@@ -4,7 +4,7 @@ import classNames from "classnames";
 import React, { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { AppContext } from "../../App";
-import { supabase } from "../../config/apiClient";
+import { AddTask } from "../../config/ApiCall";
 import Button from "../Button";
 import Icon from "../Icon";
 import TextArea from "../TextArea";
@@ -53,12 +53,7 @@ const Todos = () => {
     } else {
       setShowSpinner(true);
 
-      const { data, error } = await supabase.from("ReactTodo").insert([
-        {
-          name: updatedName,
-          created_at: new Date(Date.now()),
-        },
-      ]);
+      const { data, error } = await AddTask(updatedName);
 
       if (error === null) {
         setShow(!show);

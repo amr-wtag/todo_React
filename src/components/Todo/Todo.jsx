@@ -3,7 +3,7 @@ import { format, formatDistance } from "date-fns";
 import { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { AppContext } from "../../App";
-import { supabase } from "../../config/apiClient";
+import { CompleteTask, UpdateTask } from "../../config/ApiCall";
 import Button from "../Button";
 import Icon from "../Icon";
 import Tag from "../Tag";
@@ -43,10 +43,7 @@ const Todo = ({ todo }) => {
     setIsLoading(true);
     const dateValue = new Date(Date.now());
 
-    const { data, error } = await supabase
-      .from("ReactTodo")
-      .update({ completed_on: dateValue })
-      .match({ id: todo.id });
+    const { data, error } = await CompleteTask(dateValue, todo.id);
 
     if (error === null) {
       todo.completed_on = data[0]["completed_on"];
@@ -72,12 +69,7 @@ const Todo = ({ todo }) => {
     if (updatedName.length > 2 && todo.name !== updatedName) {
       setIsLoading(true);
       // eslint-disable-next-line
-      const { data, error } = await supabase
-        .from("ReactTodo")
-        .update({
-          name: updatedName,
-        })
-        .match({ id: todo.id });
+      const { data, error } = await UpdateTask(updatedName, todo.id);
 
       if (error === null) {
         todo.name = updatedName;

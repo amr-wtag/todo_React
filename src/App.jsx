@@ -9,7 +9,7 @@ import Icon from "./components/Icon";
 import Tag from "./components/Tag";
 import Toaster from "./components/Toaster";
 import Todos from "./components/Todos";
-import { supabase } from "./config/apiClient";
+import { DeleteData, fetchValue } from "./config/ApiCall";
 
 export const AppContext = React.createContext();
 
@@ -62,91 +62,36 @@ function App() {
   // useEffect
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
       let newToast;
-      switch (flag) {
-        case "all": {
-          const { data, error } = await supabase
-            .from("ReactTodo")
-            .select()
-            .ilike("name", `%${search}%`)
-            .order("id", { ascending: false });
+      const { data, error } = await fetchValue(flag, search);
+      setIsLoading(true);
 
-          if (error) {
-            if (isFlagChange) {
-              setFlag(prevFlag);
-            }
-            if (splash) {
-              setProgress(false);
-              setSplash(false);
-            }
-          } else {
-            setTodos([]);
-            setTodos(data);
-            if (splash) {
-              setDataCount(data.length);
-              setProgress(false);
-              setTimeout(() => {
-                setSplash(false);
-              }, 500);
-            }
-          }
-          newToast = {
-            id: uuidv4(),
-            type: error ? "error" : "success",
-            message: error ? error.message : "All Data fetched",
-          };
-          setToasts([...toasts, newToast]);
-          break;
+      if (error) {
+        if (isFlagChange) {
+          setFlag(prevFlag);
         }
-        case "incomplete": {
-          const { data, error } = await supabase
-            .from("ReactTodo")
-            .select()
-            .ilike("name", `%${search}%`)
-            .is("completed_on", null)
-            .order("id", { ascending: false });
-
-          if (error === null) {
-            setTodos([]);
-            setTodos(data);
-          } else {
-            setFlag(prevFlag);
-            setIsFlagChange(false);
-          }
-
-          newToast = {
-            id: uuidv4(),
-            type: error ? "error" : "success",
-            message: error ? error.message : "Incompleted Data fetched",
-          };
-
-          setToasts([...toasts, newToast]);
-          break;
+        if (splash) {
+          setProgress(false);
+          setSplash(false);
         }
-        default: {
-          const { data, error } = await supabase
-            .from("ReactTodo")
-            .select()
-            .ilike("name", `%${search}%`)
-            .order("id", { ascending: false })
-            .not("completed_on", "is", null);
-          if (error === null) {
-            setTodos([]);
-            setTodos(data);
-          } else {
-            setFlag(prevFlag);
-            setIsFlagChange(false);
-          }
-
-          newToast = {
-            id: uuidv4(),
-            type: error ? "error" : "success",
-            message: error ? error.message : "Completed Data fetched",
-          };
-          setToasts([...toasts, newToast]);
+      } else {
+        setTodos([]);
+        setTodos(data);
+        if (splash) {
+          setDataCount(data.length);
+          setProgress(false);
+          setTimeout(() => {
+            setSplash(false);
+          }, 500);
         }
       }
+      newToast = {
+        id: uuidv4(),
+        type: error ? "error" : "success",
+        message: error ? error.message : "Data fetched",
+      };
+      setToasts([...toasts, newToast]);
+
       setIsLoading(false);
     };
     fetchData();
@@ -166,11 +111,7 @@ function App() {
 
   const handleRemoveTodo = async (id) => {
     let newToast;
-    // eslint-disable-next-line
-    const { data, error } = await supabase
-      .from("ReactTodo")
-      .delete()
-      .match({ id: id });
+    const { data, error } = await DeleteData(id);
 
     if (error === null) {
       setDataCount(dataCount - 1);
