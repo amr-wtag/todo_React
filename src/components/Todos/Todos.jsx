@@ -166,6 +166,7 @@ const Todos = () => {
                     event.target.value = "";
                     event.target.value = val;
                   }}
+                  value={taskvalue}
                 />
               </div>
               <div className="todo__add-del">

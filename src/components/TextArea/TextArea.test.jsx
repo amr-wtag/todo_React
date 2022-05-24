@@ -43,4 +43,11 @@ describe("checking textarea componenet", () => {
 
     expect(output.find("textarea").props().value).toBe("textarea value");
   });
+  test("check TextArea component onChange", () => {
+    const onChangeMockFn = jest.fn();
+    const output = shallow(<TextArea onChange={onChangeMockFn} />);
+    output.find("textarea").simulate("change");
+
+    expect(onChangeMockFn).toHaveBeenCalled();
+  });
 });

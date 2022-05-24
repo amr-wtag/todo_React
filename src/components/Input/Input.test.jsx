@@ -26,7 +26,7 @@ describe("checking Input componenet", () => {
   test("input onChange callback", () => {
     const onChangeMockFn = jest.fn();
     const output = wrapper("input_id", "input-class", true, onChangeMockFn);
-    console.log(output.debug());
+
     output.find("input").simulate("change");
     expect(onChangeMockFn).toHaveBeenCalled();
   });

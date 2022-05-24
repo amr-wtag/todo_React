@@ -1,6 +1,7 @@
 /* eslint-disable testing-library/no-debugging-utils */
 import { mount } from "enzyme";
 import { AppContext } from "../../App";
+import { supabase } from "../../config/apiClient";
 import Todos from "./index";
 
 describe("checking todos component", () => {
@@ -116,5 +117,24 @@ describe("checking todos component", () => {
     output.find(".btn__top-button").hostNodes().at(0).simulate("click");
 
     expect(mockFn).toHaveBeenCalled();
+  });
+  test("check add api call", () => {
+    const fetchFn = jest.fn(async () => {
+      await supabase.from("ReactTodo").insert([
+        {
+          name: "updatedName",
+          created_at: new Date(Date.now()),
+        },
+      ]);
+    });
+    output.find(".btn__create").hostNodes().simulate("click");
+    output
+      .find(".textarea__edit-name")
+      .hostNodes()
+      .simulate("change", { target: { value: "abcd" } });
+    output.find(".btn__save-button").hostNodes().simulate("click");
+    setTimeout(() => {
+      expect(output.find(".textarea__edit-name").hostNodes().length).toBe(0);
+    }, 1000);
   });
 });
