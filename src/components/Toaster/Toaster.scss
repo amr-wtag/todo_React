@@ -53,7 +53,7 @@
     color: $bg-alternative-font;
   }
 
-  @media screen and (max-width: 725px) {
+  @include viewport-is(tab-mobile) {
     &__over-toaster {
       left: calc(50% - 322px / 2);
       position: absolute;
@@ -63,7 +63,7 @@
     }
   }
 
-  @media screen and (max-width: 411px) {
+  @include viewport-is(mobile) {
     &__over-toaster {
       left: calc(50% - 229px / 2);
       position: absolute;

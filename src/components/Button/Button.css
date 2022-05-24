@@ -126,23 +126,23 @@
           justify-content: center;
 }
 
-@media screen and (max-width: 854px) {
+@media only screen and (max-width: 991px) {
   .btn__all__boxed-button {
     min-width: 33px;
   }
 }
 
-@media screen and (max-width: 725px) {
+@media only screen and (max-width: 767px) {
   .btn__create {
     width: 95px;
   }
-  .btn__top-button {
-    height: 36px;
-  }
 }
 
-@media screen and (max-width: 391px) {
+@media only screen and (max-width: 480px) {
   .btn__create {
+    margin: 0px 10px 11px 0px;
+  }
+  .btn__top-button--all {
     margin: 0px 10px 11px 0px;
   }
 }

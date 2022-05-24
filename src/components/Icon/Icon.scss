@@ -55,12 +55,12 @@
     top: 50%;
     z-index: 9999;
   }
-  @media screen and (max-width: 1086px) {
+  @include viewport-is(desktop-tab) {
     &__rotate-full {
       left: 44%;
     }
   }
-  @media screen and (max-width: 620px) {
+  @include viewport-is(tab-mobile) {
     &__rotate-full {
       left: 37%;
     }

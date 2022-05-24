@@ -76,7 +76,7 @@
   color: #ffffff;
 }
 
-@media screen and (max-width: 725px) {
+@media only screen and (max-width: 767px) {
   .toast__over-toaster {
     left: calc(50% - 322px / 2);
     position: absolute;
@@ -86,7 +86,7 @@
   }
 }
 
-@media screen and (max-width: 411px) {
+@media only screen and (max-width: 480px) {
   .toast__over-toaster {
     left: calc(50% - 229px / 2);
     position: absolute;

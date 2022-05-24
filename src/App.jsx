@@ -63,8 +63,8 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       let newToast;
-      const { data, error } = await fetchValue(flag, search);
       setIsLoading(true);
+      const { data, error } = await fetchValue(flag, search);
 
       if (error) {
         if (isFlagChange) {

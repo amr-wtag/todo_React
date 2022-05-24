@@ -9,23 +9,23 @@
     margin-right: 4px;
     width: 518px;
   }
-  @media screen and (max-width: 854px) {
+  @include viewport-is(desktop-tab) {
     &__search {
       width: 390px;
     }
   }
-  @media screen and (max-width: 725px) {
+  @include viewport-is(tab-mobile) {
     &__search {
-      width: 300px;
+      width: 200px;
     }
   }
 
-  @media screen and (max-width: 556px) {
+  @include viewport-is(mobile) {
     &__search {
-      width: 180px;
+      width: 130px;
     }
   }
-  @media screen and (max-width: 411px) {
+  @include viewport-is(small-mobile) {
     &__search {
       width: 73px;
     }

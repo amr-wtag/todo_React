@@ -8,3 +8,33 @@ $box-shadow: rgba(0, 0, 0, 0.2);
 $error: #e85f5f;
 $created-font: #bbbdd0;
 $font: #32394b;
+
+$large-desktop: 1200px;
+$desktop-tab: 991px;
+$tab-mobile: 767px;
+$mobile: 480px;
+$small-mobile: 360px;
+
+@mixin viewport-is($media) {
+  @if $media == large-desktop {
+    @media only screen and (max-width: $large-desktop) {
+      @content;
+    }
+  } @else if $media == desktop-tab {
+    @media only screen and (max-width: $desktop-tab) {
+      @content;
+    }
+  } @else if $media == tab-mobile {
+    @media only screen and (max-width: $tab-mobile) {
+      @content;
+    }
+  } @else if $media == mobile {
+    @media only screen and (max-width: $mobile) {
+      @content;
+    }
+  } @else if $media == small-mobile {
+    @media only screen and (max-width: $small-mobile) {
+      @content;
+    }
+  }
+}

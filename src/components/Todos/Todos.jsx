@@ -224,11 +224,6 @@ const Todos = () => {
           </div>
         )}
       </div>
-      <div>
-        {isLoading && (
-          <Icon className="logo__spinning logo__rotate-full" src="Spin" />
-        )}
-      </div>
     </div>
   );
 };

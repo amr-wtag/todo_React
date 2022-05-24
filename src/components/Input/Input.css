@@ -9,25 +9,25 @@
   width: 518px;
 }
 
-@media screen and (max-width: 854px) {
+@media only screen and (max-width: 991px) {
   .input__search {
     width: 390px;
   }
 }
 
-@media screen and (max-width: 725px) {
+@media only screen and (max-width: 767px) {
   .input__search {
-    width: 300px;
+    width: 200px;
   }
 }
 
-@media screen and (max-width: 556px) {
+@media only screen and (max-width: 480px) {
   .input__search {
-    width: 180px;
+    width: 130px;
   }
 }
 
-@media screen and (max-width: 411px) {
+@media only screen and (max-width: 360px) {
   .input__search {
     width: 73px;
   }

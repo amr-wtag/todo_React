@@ -97,21 +97,21 @@
     display: flex;
     justify-content: center;
   }
-  @media screen and (max-width: 854px) {
+  @include viewport-is(desktop-tab) {
     &__all__boxed-button {
       min-width: 33px;
     }
   }
-  @media screen and (max-width: 725px) {
+  @include viewport-is(tab-mobile) {
     &__create {
       width: 95px;
     }
-    &__top-button {
-      height: 36px;
-    }
   }
-  @media screen and (max-width: 391px) {
+  @include viewport-is(mobile) {
     &__create {
+      margin: 0px 10px 11px 0px;
+    }
+    &__top-button--all {
       margin: 0px 10px 11px 0px;
     }
   }
