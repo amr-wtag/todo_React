@@ -41,7 +41,7 @@ const Header = () => {
               autoFocus
               className="input__search"
               readOnly={isLoading}
-              onKeyUp={debounce(searchHandler, 500)}
+              onChange={debounce(searchHandler, 500)}
             />
           )}
           <Button
