@@ -33,7 +33,6 @@ const Todo = ({ todo }) => {
   // Delete task
   const deletetodo = (id) => {
     setIsLoading(true);
-
     handleRemoveTodo(id);
   };
   // on Complete

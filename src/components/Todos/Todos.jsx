@@ -34,6 +34,7 @@ const Todos = () => {
   };
   const toggleHandler = (event) => {
     event.preventDefault();
+    setTaskvalue("");
     setShow(!show);
     setIsEmpty(show);
   };
