@@ -39,26 +39,28 @@ const Todos = () => {
     setIsEmpty(show);
   };
   const addhandler = async () => {
-    const updatedName = await Sanitize(taskvalue);
-    if (updatedName.length < 3) {
-      AddToast("error", "Task length must be more than 2");
-    } else {
-      setShowSpinner(true);
+    try {
+      const updatedName = await Sanitize(taskvalue);
+      if (updatedName.length < 3) {
+        AddToast("error", "Task length must be more than 2");
+      } else {
+        setShowSpinner(true);
 
-      const { data, error } = await AddTask(updatedName);
+        const { data, error } = await AddTask(updatedName);
 
-      if (error === null) {
-        setShow(!show);
-        if (flag !== "complete" && data[0].name.includes(search)) {
-          todos.unshift(data[0]);
+        if (error === null) {
+          setShow(!show);
+          if (flag !== "complete" && data[0].name.includes(search)) {
+            todos.unshift(data[0]);
+          }
+          setDataCount(dataCount + 1);
+          setTaskvalue("");
         }
-        setDataCount(dataCount + 1);
-        setTaskvalue("");
-      }
-      AddToast(error, error ? "Could not added task" : "New Task Added");
+        AddToast(error, error ? "Could not added task" : "New Task Added");
 
-      setShowSpinner(false);
-    }
+        setShowSpinner(false);
+      }
+    } catch (error) {}
   };
   const moreValue = () => {
     setIsLoading(true);
