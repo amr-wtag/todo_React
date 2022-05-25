@@ -129,14 +129,8 @@ describe("checking todos component", () => {
     });
 
     output.find(".btn__create").hostNodes().simulate("click");
-    output
-      .find(".textarea__edit-name")
-      .hostNodes()
-      .simulate("change", { target: { value: "abcd" } });
-    console.log(output.find(".btn__save-button").hostNodes().debug());
+    output.find(".textarea__edit-name").hostNodes().simulate("change", "abcd");
     output.find(".btn__save-button").hostNodes().simulate("click");
-    setTimeout(() => {
-      expect(output.find(".textarea__edit-name").hostNodes().length).toBe(0);
-    }, 1000);
+    expect(mockFn).toBeCalledTimes(2);
   });
 });
