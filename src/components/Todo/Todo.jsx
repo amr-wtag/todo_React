@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { format, formatDistance } from "date-fns";
 import { useContext, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { AppContext } from "../../App";
 import { CompleteTask, UpdateTask } from "../../config/ApiCall";
 import Button from "../Button";
@@ -14,9 +13,9 @@ const Todo = ({ todo }) => {
     handleRemoveTodo,
     flag,
     removeCompleteFromIncomplete,
-    toasts,
-    setToasts,
+    AddToast,
     search,
+    Sanitize,
   } = useContext(AppContext);
   const [newName, setNewName] = useState(todo.name);
   const [isEdit, setIsEdit] = useState(false);
@@ -50,22 +49,14 @@ const Todo = ({ todo }) => {
       if (flag === "incomplete") removeCompleteFromIncomplete(todo.id);
       if (isEdit) editToggle();
     }
-    let newToast = {
-      id: uuidv4(),
-      type: error ? "error" : "success",
-      message: error ? error.message : "Task Complted",
-    };
-
-    setToasts([...toasts, newToast]);
+    AddToast(error, error ? "something Wrong" : "Task Completed");
 
     if (flag !== "incomplete") setIsLoading(false);
   };
 
   const editValue = async () => {
-    const updatedName = newName
-      .trim()
-      .replace(/\s+/g, " ")
-      .replace(/(<([^>]+)>)/gi, "");
+    const updatedName = Sanitize(newName);
+
     if (updatedName.length > 2 && todo.name !== updatedName) {
       setIsLoading(true);
       // eslint-disable-next-line
@@ -80,12 +71,7 @@ const Todo = ({ todo }) => {
         editToggle();
       }
       setIsLoading(false);
-      let newToast = {
-        id: uuidv4(),
-        type: error ? "error" : "success",
-        message: error ? error.message : "Task Edited",
-      };
-      setToasts([...toasts, newToast]);
+      AddToast(error, error ? "something Wrong" : "Task Edited");
     } else {
       setNewName(todo.name);
       editToggle();

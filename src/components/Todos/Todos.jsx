@@ -2,7 +2,6 @@
 
 import classNames from "classnames";
 import React, { useContext, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { AppContext } from "../../App";
 import { AddTask } from "../../config/ApiCall";
 import Button from "../Button";
@@ -14,12 +13,12 @@ const Todos = () => {
     todos,
     flagHandler,
     flag,
-    toasts,
     dataCount,
-    setToasts,
+    AddToast,
     search,
     setDataCount,
     setIsEmpty,
+    Sanitize,
     isLoading,
     setIsLoading,
   } = useContext(AppContext);
@@ -39,17 +38,9 @@ const Todos = () => {
     setIsEmpty(show);
   };
   const addhandler = async () => {
-    const updatedName = taskvalue
-      .trim()
-      .replace(/\s+/g, " ")
-      .replace(/(<([^>]+)>)/gi, "");
+    const updatedName = Sanitize(taskvalue);
     if (updatedName.length < 3) {
-      let newToast = {
-        id: uuidv4(),
-        type: "error",
-        message: "Task must be more then 3 character",
-      };
-      setToasts([...toasts, newToast]);
+      AddToast("error", "Task length must be more than 2");
     } else {
       setShowSpinner(true);
 
@@ -63,12 +54,7 @@ const Todos = () => {
         setDataCount(dataCount + 1);
         setTaskvalue("");
       }
-      let newToast = {
-        id: uuidv4(),
-        type: error ? "error" : "success",
-        message: error ? error.message : "New Task added",
-      };
-      setToasts([...toasts, newToast]);
+      AddToast(error, error ? "Could not added task" : "New Task Added");
 
       setShowSpinner(false);
     }
@@ -86,11 +72,11 @@ const Todos = () => {
   };
   return (
     <div>
-      <div className="addTask">
-        <h1 className="addTaskH1">Add Tasks</h1>
+      <div className="add-task">
+        <h1>Add Tasks</h1>
       </div>
       <div className={classNames({ blur: isLoading })}>
-        <div className="head__headerClass">
+        <div className="head__header-class">
           <Button
             className={classNames("btn btn__create", { blur: show })}
             onClick={toggleHandler}

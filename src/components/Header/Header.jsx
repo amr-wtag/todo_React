@@ -24,8 +24,8 @@ const Header = () => {
   };
 
   return (
-    <div className={"head__overHead"}>
-      <div className="head__Header">
+    <div className={"head__over-head"}>
+      <div className="head__header">
         <div className="logo">
           <div className="logo logo__icon-logo">
             <Icon src="Leaf" />
@@ -34,7 +34,7 @@ const Header = () => {
             <Icon src="Title" />
           </div>
         </div>
-        <div className="head__searchInputButton">
+        <div className="head__search-input-button">
           {searchShow && (
             <Input
               id="search"

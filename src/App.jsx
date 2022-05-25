@@ -59,11 +59,24 @@ function App() {
     }
     setSearchShow(!searchShow);
   };
+  const AddToast = (error, message) => {
+    const newToast = {
+      id: uuidv4(),
+      type: error ? "error" : "success",
+      message: message,
+    };
+    setToasts([...toasts, newToast]);
+  };
+  const Sanitize = (name) => {
+    return name
+      .trim()
+      .replace(/\s+/g, " ")
+      .replace(/(<([^>]+)>)/gi, "");
+  };
 
   // useEffect
   useEffect(() => {
     const fetchData = async () => {
-      let newToast;
       setIsLoading(true);
       const { data, error } = await fetchValue(flag, search);
 
@@ -71,27 +84,21 @@ function App() {
         if (isFlagChange) {
           setFlag(prevFlag);
         }
-        if (splash) {
-          setProgress(false);
-          setSplash(false);
-        }
       } else {
         setTodos([]);
         setTodos(data);
-        if (splash) {
-          setDataCount(data.length);
-          setProgress(false);
-          setTimeout(() => {
-            setSplash(false);
-          }, 500);
-        }
       }
-      newToast = {
-        id: uuidv4(),
-        type: error ? "error" : "success",
-        message: error ? error.message : "Data fetched",
-      };
-      setToasts([...toasts, newToast]);
+      if (splash) {
+        if (!error) setDataCount(data.length);
+        setProgress(false);
+        setTimeout(
+          () => {
+            setSplash(false);
+          },
+          error ? 0 : 500,
+        );
+      }
+      AddToast(error, error ? "Could not fetched Data" : "Data fetched");
 
       setIsLoading(false);
     };
@@ -111,7 +118,6 @@ function App() {
   }, [toasts]);
 
   const handleRemoveTodo = async (id) => {
-    let newToast;
     const { data, error } = await DeleteData(id);
 
     if (error === null) {
@@ -122,12 +128,7 @@ function App() {
         setFlag("all");
       }
     }
-    newToast = {
-      id: uuidv4(),
-      type: error ? "error" : "success",
-      message: error ? error.message : "Task Deleted",
-    };
-    setToasts([...toasts, newToast]);
+    AddToast(error, error ? "Could not deleted task" : "Task Deleted");
   };
 
   return (
@@ -188,14 +189,14 @@ function App() {
                 todos,
                 flag,
                 flagHandler,
-                toasts,
                 search,
-                setToasts,
+                AddToast,
                 dataCount,
                 setDataCount,
                 setIsEmpty,
                 isLoading,
                 setIsLoading,
+                Sanitize,
                 removeCompleteFromIncomplete,
                 handleRemoveTodo,
               }}
