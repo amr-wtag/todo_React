@@ -46,8 +46,7 @@ describe("checking textarea componenet", () => {
   test("check TextArea component onChange", () => {
     const onChangeMockFn = jest.fn();
     const output = shallow(<TextArea onChange={onChangeMockFn} />);
-    output.find("textarea").simulate("change");
-
-    expect(onChangeMockFn).toHaveBeenCalled();
+    output.find("textarea").simulate("change", "abcd");
+    expect(onChangeMockFn).toHaveBeenCalledWith("abcd");
   });
 });

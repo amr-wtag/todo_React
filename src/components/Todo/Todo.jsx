@@ -54,7 +54,7 @@ const Todo = ({ todo }) => {
   };
 
   const editValue = async () => {
-    const updatedName = Sanitize(newName);
+    const updatedName = await Sanitize(newName);
 
     if (updatedName.length > 2 && todo.name !== updatedName) {
       setIsLoading(true);

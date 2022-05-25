@@ -7,6 +7,7 @@ import Todos from "./index";
 describe("checking todos component", () => {
   let output;
   const mockFn = jest.fn();
+
   beforeEach(() => {
     output = mount(
       <AppContext.Provider
@@ -93,13 +94,12 @@ describe("checking todos component", () => {
           ],
           flag: "all",
           flagHandler: mockFn,
-          toasts: [],
           search: "",
-          setToasts: mockFn,
+          Sanitize: mockFn,
           dataCount: 13,
           setDataCount: mockFn,
           setIsEmpty: mockFn,
-          removeCompleteFromIncomplete: mockFn,
+
           setIsLoading: mockFn,
           handleRemoveTodo: mockFn,
           isLoading: false,
@@ -127,11 +127,13 @@ describe("checking todos component", () => {
         },
       ]);
     });
+
     output.find(".btn__create").hostNodes().simulate("click");
     output
       .find(".textarea__edit-name")
       .hostNodes()
       .simulate("change", { target: { value: "abcd" } });
+    console.log(output.find(".btn__save-button").hostNodes().debug());
     output.find(".btn__save-button").hostNodes().simulate("click");
     setTimeout(() => {
       expect(output.find(".textarea__edit-name").hostNodes().length).toBe(0);

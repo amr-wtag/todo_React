@@ -39,7 +39,7 @@ const Todos = () => {
     setIsEmpty(show);
   };
   const addhandler = async () => {
-    const updatedName = Sanitize(taskvalue);
+    const updatedName = await Sanitize(taskvalue);
     if (updatedName.length < 3) {
       AddToast("error", "Task length must be more than 2");
     } else {
