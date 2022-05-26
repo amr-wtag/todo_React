@@ -2,20 +2,19 @@ import classNames from "classnames";
 import { format, formatDistance } from "date-fns";
 import { useContext, useState } from "react";
 import { AppContext } from "../../App";
-import { CompleteTask, UpdateTask } from "../../config/ApiCall";
+import { completeTask, updateTask } from "../../config/ApiCall";
 import Button from "../Button";
 import Icon from "../Icon";
 import Tag from "../Tag";
 import TextArea from "../TextArea";
-
 const Todo = ({ todo }) => {
   const {
     handleRemoveTodo,
     flag,
     removeCompleteFromIncomplete,
-    AddToast,
+    addToast,
     search,
-    Sanitize,
+    sanitize,
   } = useContext(AppContext);
   const [newName, setNewName] = useState(todo.name);
   const [isEdit, setIsEdit] = useState(false);
@@ -41,40 +40,42 @@ const Todo = ({ todo }) => {
     setIsLoading(true);
     const dateValue = new Date(Date.now());
 
-    const { data, error } = await CompleteTask(dateValue, todo.id);
+    const { data, error } = await completeTask(dateValue, todo.id);
 
     if (error === null) {
       todo.completed_on = data[0]["completed_on"];
       if (flag === "incomplete") removeCompleteFromIncomplete(todo.id);
       if (isEdit) editToggle();
     }
-    AddToast(error, error ? "something Wrong" : "Task Completed");
+    addToast(error, error ? "something Wrong" : "Task Completed");
 
     if (flag !== "incomplete") setIsLoading(false);
   };
 
   const editValue = async () => {
-    const updatedName = await Sanitize(newName);
+    try {
+      const updatedName = await sanitize(newName);
 
-    if (updatedName.length > 2 && todo.name !== updatedName) {
-      setIsLoading(true);
-      // eslint-disable-next-line
-      const { data, error } = await UpdateTask(updatedName, todo.id);
+      if (updatedName.length > 2 && todo.name !== updatedName) {
+        setIsLoading(true);
+        // eslint-disable-next-line
+        const { data, error } = await updateTask(updatedName, todo.id);
 
-      if (error === null) {
-        todo.name = updatedName;
-        setNewName(updatedName);
-        if (!data[0].name.includes(search)) {
-          removeCompleteFromIncomplete(todo.id);
+        if (error === null) {
+          todo.name = updatedName;
+          setNewName(updatedName);
+          if (!data[0].name.includes(search)) {
+            removeCompleteFromIncomplete(todo.id);
+          }
+          editToggle();
         }
+        setIsLoading(false);
+        addToast(error, error ? "something Wrong" : "Task Edited");
+      } else {
+        setNewName(todo.name);
         editToggle();
       }
-      setIsLoading(false);
-      AddToast(error, error ? "something Wrong" : "Task Edited");
-    } else {
-      setNewName(todo.name);
-      editToggle();
-    }
+    } catch (e) {}
   };
 
   return (
@@ -96,7 +97,7 @@ const Todo = ({ todo }) => {
             onKeyPress={(event) => {
               if (event.key === "Enter") {
                 event.preventDefault();
-                editValue(todo.id);
+                editValue();
               }
             }}
           />
@@ -125,10 +126,7 @@ const Todo = ({ todo }) => {
       >
         <div className="btn btn__all__boxed-button">
           {isEdit && (
-            <Button
-              className="btn btn__save-button"
-              onClick={() => editValue(todo.id)}
-            >
+            <Button className="btn btn__save-button" onClick={editValue}>
               Save
             </Button>
           )}

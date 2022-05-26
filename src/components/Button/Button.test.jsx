@@ -4,7 +4,6 @@ import Button from "./index";
 describe("writing test for button componenet", () => {
   test("should render the button component", () => {
     const output = shallow(<Button disabled={true} />);
-
     expect(output.find("button").props().disabled).toBe(true);
   });
 

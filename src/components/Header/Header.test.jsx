@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
+import { mount } from "enzyme";
 import React from "react";
-import { mount, shallow } from "enzyme";
-import Header from "./index";
 import { AppContext } from "../../App";
+import Header from "./index";
 test("should Header component have Button component with class searchButton", () => {
   const mockFn = jest.fn();
 
@@ -12,7 +13,7 @@ test("should Header component have Button component with class searchButton", ()
         searchShow: false,
         searchvalue: "abcd",
         dataCount: 0,
-        showBigSpinner: false,
+        isLoading: false,
       }}
     >
       <Header />
@@ -32,11 +33,30 @@ test("check context values of Header component", () => {
         searchShow: true,
         searchvalue: "abcd",
         dataCount: 0,
-        showBigSpinner: false,
+        isLoading: false,
       }}
     >
       <Header />
     </AppContext.Provider>,
   );
   expect(output.find("input").props().readOnly).toBeFalsy();
+});
+
+test("if loading is true input field will be read only", () => {
+  const mockFn = jest.fn();
+
+  const output = mount(
+    <AppContext.Provider
+      value={{
+        SearchToggle: mockFn,
+        searchShow: true,
+        searchvalue: "abcd",
+        dataCount: 0,
+        isLoading: true,
+      }}
+    >
+      <Header />
+    </AppContext.Provider>,
+  );
+  expect(output.find("input").props().readOnly).toBeTruthy();
 });

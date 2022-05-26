@@ -5,17 +5,16 @@ import Todo from "./index";
 
 describe("checking todo component", () => {
   let output;
-  const mockFn = jest.fn();
   beforeEach(() => {
     output = mount(
       <AppContext.Provider
         value={{
-          handleRemoveTodo: mockFn,
+          handleRemoveTodo: jest.fn(),
           flag: "all",
-          removeCompleteFromIncomplete: mockFn,
-          toasts: [],
-          setToasts: mockFn,
+          removeCompleteFromIncomplete: jest.fn(),
+          addToast: jest.fn(),
           search: "",
+          sanitize: jest.fn(),
         }}
       >
         <Todo
@@ -43,11 +42,18 @@ describe("checking todo component", () => {
   });
   test("after save button clicked textarea will not show", () => {
     output.find("Button .btn__boxed-button").children().at(1).simulate("click");
+    output
+      .find(".textarea__edit-name")
+      .hostNodes()
+      .simulate("change", { target: { value: "abcd" } });
     output.find(".btn__save-button").hostNodes().simulate("click");
-    expect(output.find(".textarea__edit-name").hostNodes().length).toBe(0);
+    expect(output.find(".textarea__edit-name").hostNodes().props().value).toBe(
+      "abcd",
+    );
   });
   test("if showEdit is true created at will not be available", () => {
     output.find("Button .btn__boxed-button").children().at(1).simulate("click");
+
     expect(output.find(".todo__created-at").hostNodes().length).toBe(0);
   });
 });

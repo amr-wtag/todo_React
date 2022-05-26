@@ -24,14 +24,14 @@ export const fetchValue = async (flag, search) => {
       .not("completed_on", "is", null));
   return { data, error };
 };
-export const DeleteData = async (id) => {
+export const deleteData = async (id) => {
   const { data, error } = await supabase
     .from("ReactTodo")
     .delete()
     .match({ id: id });
   return { data, error };
 };
-export const CompleteTask = async (dateValue, id) => {
+export const completeTask = async (dateValue, id) => {
   const { data, error } = await supabase
     .from("ReactTodo")
     .update({ completed_on: dateValue })
@@ -39,7 +39,7 @@ export const CompleteTask = async (dateValue, id) => {
   return { data, error };
 };
 
-export const UpdateTask = async (updatedName, id) => {
+export const updateTask = async (updatedName, id) => {
   const { data, error } = await supabase
     .from("ReactTodo")
     .update({
@@ -48,7 +48,7 @@ export const UpdateTask = async (updatedName, id) => {
     .match({ id: id });
   return { data, error };
 };
-export const AddTask = async (updatedName) => {
+export const addTask = async (updatedName) => {
   const { data, error } = await supabase.from("ReactTodo").insert([
     {
       name: updatedName,

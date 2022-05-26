@@ -3,7 +3,7 @@
 import classNames from "classnames";
 import React, { useContext, useState } from "react";
 import { AppContext } from "../../App";
-import { AddTask } from "../../config/ApiCall";
+import { addTask } from "../../config/ApiCall";
 import Button from "../Button";
 import Icon from "../Icon";
 import TextArea from "../TextArea";
@@ -14,11 +14,11 @@ const Todos = () => {
     flagHandler,
     flag,
     dataCount,
-    AddToast,
+    addToast,
     search,
     setDataCount,
     setIsEmpty,
-    Sanitize,
+    sanitize,
     isLoading,
     setIsLoading,
   } = useContext(AppContext);
@@ -40,14 +40,13 @@ const Todos = () => {
   };
   const addhandler = async () => {
     try {
-      const updatedName = await Sanitize(taskvalue);
+      const updatedName = await sanitize(taskvalue);
       if (updatedName.length < 3) {
-        AddToast("error", "Task length must be more than 2");
+        addToast("error", "Task length must be more than 2");
       } else {
         setShowSpinner(true);
 
-        const { data, error } = await AddTask(updatedName);
-
+        const { data, error } = await addTask(updatedName);
         if (error === null) {
           setShow(!show);
           if (flag !== "complete" && data[0].name.includes(search)) {
@@ -56,7 +55,7 @@ const Todos = () => {
           setDataCount(dataCount + 1);
           setTaskvalue("");
         }
-        AddToast(error, error ? "Could not added task" : "New Task Added");
+        addToast(error, error ? "Could not added task" : "New Task Added");
 
         setShowSpinner(false);
       }

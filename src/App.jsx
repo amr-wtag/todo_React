@@ -10,7 +10,7 @@ import Icon from "./components/Icon";
 import Tag from "./components/Tag";
 import Toaster from "./components/Toaster";
 import Todos from "./components/Todos";
-import { DeleteData, fetchValue } from "./config/ApiCall";
+import { deleteData, fetchValue } from "./config/ApiCall";
 
 export const AppContext = React.createContext();
 
@@ -59,7 +59,7 @@ function App() {
     }
     setSearchShow(!searchShow);
   };
-  const AddToast = (error, message) => {
+  const addToast = (error, message) => {
     const newToast = {
       id: uuidv4(),
       type: error ? "error" : "success",
@@ -67,7 +67,8 @@ function App() {
     };
     setToasts([...toasts, newToast]);
   };
-  const Sanitize = (name) => {
+  const sanitize = (name) => {
+    console.log("sanitized");
     return name
       .trim()
       .replace(/\s+/g, " ")
@@ -98,7 +99,7 @@ function App() {
           error ? 0 : 500,
         );
       }
-      AddToast(error, error ? "Could not fetched Data" : "Data fetched");
+      addToast(error, error ? "Could not fetched Data" : "Data fetched");
 
       setIsLoading(false);
     };
@@ -118,7 +119,7 @@ function App() {
   }, [toasts]);
 
   const handleRemoveTodo = async (id) => {
-    const { data, error } = await DeleteData(id);
+    const { data, error } = await deleteData(id);
 
     if (error === null) {
       setDataCount(dataCount - 1);
@@ -128,7 +129,7 @@ function App() {
         setFlag("all");
       }
     }
-    AddToast(error, error ? "Could not deleted task" : "Task Deleted");
+    addToast(error, error ? "Could not deleted task" : "Task Deleted");
   };
 
   return (
@@ -190,13 +191,13 @@ function App() {
                 flag,
                 flagHandler,
                 search,
-                AddToast,
+                addToast,
                 dataCount,
                 setDataCount,
                 setIsEmpty,
                 isLoading,
                 setIsLoading,
-                Sanitize,
+                sanitize,
                 removeCompleteFromIncomplete,
                 handleRemoveTodo,
               }}
