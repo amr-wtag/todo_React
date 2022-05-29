@@ -30,7 +30,7 @@ const Todo = ({ todo }) => {
     setNewName(event.target.value);
   };
   // Delete task
-  const deletetodo = (id) => {
+  const deleteTodo = (id) => {
     setIsLoading(true);
     handleRemoveTodo(id);
   };
@@ -153,7 +153,7 @@ const Todo = ({ todo }) => {
           <Button
             id="delete"
             className="btn btn__boxed-button"
-            onClick={() => deletetodo(todo.id)}
+            onClick={() => deleteTodo(todo.id)}
           >
             <Icon src="Delete" />
           </Button>

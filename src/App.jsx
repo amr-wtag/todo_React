@@ -68,7 +68,6 @@ function App() {
     setToasts([...toasts, newToast]);
   };
   const sanitize = (name) => {
-    console.log("sanitized");
     return name
       .trim()
       .replace(/\s+/g, " ")
