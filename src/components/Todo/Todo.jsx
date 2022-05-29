@@ -120,11 +120,11 @@ const Todo = ({ todo }) => {
         )}
       </div>
       <div
-        className={classNames("btn btn__boxed-button__completed-on", {
+        className={classNames("btn__boxed-button__completed-on", {
           blur: isLoading,
         })}
       >
-        <div className="btn btn__all__boxed-button">
+        <div className="btn__all__boxed-button">
           {isEdit && (
             <Button className="btn btn__save-button" onClick={editValue}>
               Save

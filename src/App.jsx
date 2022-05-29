@@ -145,7 +145,7 @@ function App() {
             ></div>
           </div>
           <div className="app__splash fadding-out">
-            <div className="logo logo__splash-logo ">
+            <div className="logo logo__splash-logo">
               <div className="logo logo__splash__icon-logo">
                 <Icon src="SplashLeaf" />
               </div>

@@ -87,10 +87,10 @@ const Todos = () => {
             <Icon src="Plus" />
             Create
           </Button>
-          <div className="btn btn__top-button--all">
+          <div className="btn__top-button--all">
             <Button
               className={classNames("btn btn__top-button", {
-                "btn btn__blur-button":
+                "btn__blur-button":
                   (dataCount === 0 || flag === "all") && !isLoading,
               })}
               disabled={dataCount === 0}
@@ -103,7 +103,7 @@ const Todos = () => {
             </Button>
             <Button
               className={classNames("btn btn__top-button", {
-                "btn btn__blur-button":
+                "btn__blur-button":
                   (dataCount === 0 || flag === "incomplete") && !isLoading,
               })}
               disabled={dataCount === 0}
@@ -116,7 +116,7 @@ const Todos = () => {
             </Button>
             <Button
               className={classNames("btn btn__top-button", {
-                "btn btn__blur-button":
+                "btn__blur-button":
                   (dataCount === 0 || flag === "complete") && !isLoading,
               })}
               disabled={dataCount === 0}
@@ -192,7 +192,7 @@ const Todos = () => {
         {!isLoading && (
           <div className="bottom-button">
             {todos.length <= 12 ? null : top <= todos.length ? (
-              <div className="btn btn__load-more--over">
+              <div className="btn__load-more--over">
                 <Button
                   className="btn btn__load-more--btn-container"
                   onClick={moreValue}
@@ -201,7 +201,7 @@ const Todos = () => {
                 </Button>
               </div>
             ) : (
-              <div className="btn btn__load-more--over">
+              <div className="btn__load-more--over">
                 <Button
                   className="btn btn__load-more--btn-container"
                   onClick={showless}
