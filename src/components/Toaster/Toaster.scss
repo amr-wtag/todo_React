@@ -1,0 +1,75 @@
+@import "../../variable.scss";
+.toast {
+  border: 1px solid $border;
+  border-radius: 5px;
+  box-shadow: 0 0 10px $box-shadow;
+  left: 0;
+  margin: auto;
+  margin-top: 10px;
+  max-width: 400px;
+  min-height: 25px;
+  padding: 6px;
+  padding-top: 10px;
+  right: 0;
+  transition: opacity 0.2s, top 0.2s, visibility 0.2s;
+  text-align: center;
+  top: 37px;
+  visibility: hidden;
+
+  &__toaster {
+    display: flex;
+    flex-direction: column;
+  }
+  &__over-toaster {
+    left: calc(50% - 392px / 2);
+    position: absolute;
+    z-index: 9999;
+  }
+  &--visible {
+    opacity: 1;
+    position: relative;
+    visibility: visible;
+    width: 500px;
+  }
+  @keyframes fadeout {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  &__fadding-toast-out {
+    animation: fadeout 3s infinite alternate;
+  }
+  &--error {
+    background: $error;
+    border-radius: 5px;
+    color: $bg-alternative-font;
+  }
+  &--success {
+    background: $success;
+    border-radius: 5px;
+    color: $bg-alternative-font;
+  }
+
+  @include viewport-is(tab-mobile) {
+    &__over-toaster {
+      left: calc(50% - 322px / 2);
+      position: absolute;
+    }
+    & {
+      max-width: 300px;
+    }
+  }
+
+  @include viewport-is(mobile) {
+    &__over-toaster {
+      left: calc(50% - 229px / 2);
+      position: absolute;
+    }
+    & {
+      max-width: 200px;
+    }
+  }
+}

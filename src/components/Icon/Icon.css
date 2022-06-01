@@ -1,0 +1,111 @@
+.logo {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.logo__splash-logo {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0px 7.5% 0px 6.5%;
+}
+
+.logo__icon-logo {
+  padding-right: 6px;
+}
+
+.logo__splash__icon-logo {
+  height: 154px;
+  max-width: 154px;
+  padding-right: 6px;
+}
+
+.logo__img-logo {
+  padding-right: 8px;
+}
+
+.logo__empty-screen {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  max-height: 243px;
+}
+
+.logo__empty-screen-over {
+  padding: 0px 7.5% 0px 6.5%;
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.logo__spinning {
+  -webkit-animation: spin 2s infinite;
+          animation: spin 2s infinite;
+}
+
+.logo__rotate-div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 47.36px;
+  left: 40%;
+  position: absolute;
+  top: 35%;
+  text-align: middle;
+  width: 50px;
+  z-index: 9999;
+}
+
+.logo__rotate-full {
+  left: 47%;
+  position: fixed;
+  top: 50%;
+  z-index: 9999;
+}
+
+@media screen and (max-width: 1086px) {
+  .logo__rotate-full {
+    left: 44%;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .logo__rotate-full {
+    left: 37%;
+  }
+}
+/*# sourceMappingURL=Icon.css.map */

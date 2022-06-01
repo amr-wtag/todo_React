@@ -1,0 +1,35 @@
+.input__search {
+  background: #ffffff;
+  border: 3px solid #dde2ff;
+  border-radius: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 36px;
+  margin-right: 4px;
+  width: 518px;
+}
+
+@media only screen and (max-width: 991px) {
+  .input__search {
+    width: 390px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .input__search {
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .input__search {
+    width: 130px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .input__search {
+    width: 73px;
+  }
+}
+/*# sourceMappingURL=Input.css.map */

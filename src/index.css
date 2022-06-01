@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  background-color: #f8f9ff;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.blur {
+  opacity: 0.5;
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.add-task {
+  padding: 0px 7.5% 0px 6.5%;
+}
+
+* {
+  outline: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  color: #32394b;
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fadding-out {
+  -webkit-animation: fadeout 1.5s infinite alternate;
+          animation: fadeout 1.5s infinite alternate;
+}
+
+.container {
+  height: 10px;
+  position: relative;
+  top: 20px;
+}
+
+.progress-bar {
+  position: fixed;
+  height: 15px;
+  width: 100%;
+  background-color: #7a8dfd;
+  -webkit-animation: progress-animation 2s forwards;
+          animation: progress-animation 2s forwards;
+}
+
+@-webkit-keyframes progress-animation {
+  0% {
+    width: 0%;
+  }
+  95% {
+    width: 95%;
+  }
+}
+
+@keyframes progress-animation {
+  0% {
+    width: 0%;
+  }
+  95% {
+    width: 95%;
+  }
+}
+
+.full-progress-bar {
+  position: fixed;
+  height: 15px;
+  width: 100%;
+  background-color: #7a8dfd;
+  -webkit-animation: fullprogress-animation 2s forwards;
+          animation: fullprogress-animation 2s forwards;
+}
+/*# sourceMappingURL=index.css.map */

@@ -1,0 +1,32 @@
+@import "../../variable.scss";
+.head {
+  &__over-head {
+    border: 1px solid $border;
+    background-color: $bg-alternative-font;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 99999;
+  }
+  &__header {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    height: 60px;
+    justify-content: space-between;
+    padding: 0px 7.5% 0px 6.5%;
+  }
+  &__header-class {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    max-width: 1682px;
+    padding: 0px 7.5% 0px 6.5%;
+  }
+  &__search-input-button {
+    align-items: center;
+    display: flex;
+  }
+}

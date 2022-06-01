@@ -1,0 +1,33 @@
+@import "../../variable.scss";
+.input {
+  &__search {
+    background: $bg;
+    border: 3px solid $border;
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 36px;
+    margin-right: 4px;
+    width: 518px;
+  }
+  @include viewport-is(desktop-tab) {
+    &__search {
+      width: 390px;
+    }
+  }
+  @include viewport-is(tab-mobile) {
+    &__search {
+      width: 200px;
+    }
+  }
+
+  @include viewport-is(mobile) {
+    &__search {
+      width: 130px;
+    }
+  }
+  @include viewport-is(small-mobile) {
+    &__search {
+      width: 73px;
+    }
+  }
+}

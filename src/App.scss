@@ -1,0 +1,14 @@
+.app {
+  align-items: center;
+  &__splash {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    height: 712px;
+    justify-content: center;
+  }
+  &__body-class {
+    position: relative;
+    top: 6rem;
+  }
+}

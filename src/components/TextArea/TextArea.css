@@ -1,0 +1,10 @@
+.textarea__edit-name {
+  border: 3px solid #dde2ff;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 5px;
+  height: 74px;
+  min-width: -webkit-fill-available;
+  resize: none;
+}
+/*# sourceMappingURL=TextArea.css.map */

@@ -1,0 +1,67 @@
+@import "../../variable.scss";
+
+body {
+  margin: 0;
+
+  background-color: $--bg;
+}
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.blur {
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+
+.add-task {
+  padding: 0px 7.5% 0px 6.5%;
+}
+
+* {
+  outline: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  color: $font;
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.fadding-out {
+  animation: fadeout 1.5s infinite alternate;
+}
+
+.container {
+  height: 10px;
+  position: relative;
+  top: 20px;
+}
+.progress-bar {
+  position: fixed;
+  height: 15px;
+  width: 100%;
+  background-color: $--bg-alternative;
+  animation: progress-animation 2s forwards;
+}
+@keyframes progress-animation {
+  0% {
+    width: 0%;
+  }
+  95% {
+    width: 95%;
+  }
+}
+.full-progress-bar {
+  position: fixed;
+  height: 15px;
+  width: 100%;
+  background-color: $--bg-alternative;
+  animation: fullprogress-animation 2s forwards;
+}

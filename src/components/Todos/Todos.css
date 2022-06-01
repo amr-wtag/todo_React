@@ -1,0 +1,19 @@
+.todos {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  grid-gap: 2.2rem;
+  -ms-grid-columns: (minmax(350px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  padding: 0px 7.5% 0px 6.5%;
+}
+
+@media screen and (max-width: 854px) {
+  .todos {
+    -ms-grid-columns: (minmax(250px, 1fr))[auto-fill];
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+/*# sourceMappingURL=Todos.css.map */
